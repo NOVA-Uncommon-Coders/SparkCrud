@@ -16,23 +16,29 @@ public class Main {
         Spark.init();
 
         Spark.get("/", ((request, response) -> {
+            System.out.println("got into ///");
             Session session = request.session();
-            String name = request.attribute("userName");
+            String name = session.attribute("userName");
 
             HashMap model = new HashMap();
 
             if(!globalAccounts.containsKey(name)) {
+                System.out.println("1");
                 return new ModelAndView(model,"index.html");
             }
             else {
-                //model.put("aVector", globalAccounts.get(name).getAvector());
-                return new ModelAndView(model, "another.html");
+                System.out.println("2");
+                model.put("aVector", globalAccounts.get(name).getAvector());
+                return new ModelAndView(model, "tracker.html");
             }
         }),
         new MustacheTemplateEngine()
         );
 
+        System.out.println("A");
+
         Spark.post("/create-user", (request, response) -> {
+            System.out.println("got into /create-user");
             String name = request.queryParams("createUser");
             String password = request.queryParams("createPassword");
 
@@ -40,21 +46,26 @@ public class Main {
 
             //if (!name.equals(globalAccounts.get(name)))
             if (!globalAccounts.containsKey(name)) {
-                globalAccounts.put(name, new User(name, password));
+                System.out.println("into create new");
                 session.attribute("userName", name);
+                globalAccounts.put(name, new User(name, password));
                 //should createUser on the line above, actually be userName? I think yes
             }
+            /*
             else {
                 //if(name.equals(globalAccounts.get(name)))
                 if(globalAccounts.containsKey(name)) {
                     response.redirect("/login");
                 }
             }
+            */
             response.redirect("/");
-            return "";
+            return "failure at the end of /create-user";
         });
 
         Spark.post("/login", (request, response) -> {
+            System.out.println("got into /login");
+            globalAccounts.put("mike", new User("mike", "f"));
             String name = request.queryParams("userLogin");
             String password = request.queryParams("passwordLogin");
             Session session = request.session();
@@ -70,7 +81,14 @@ public class Main {
                 return "If you would like to create an account, go back and create an account";
             }
             response.redirect("/");
-            return "It's your fault";
+            return "failure at the end of /login";
         });
+
+        Spark.post("/logout", ((request, response) -> {
+           Session session = request.session();
+           session.invalidate();
+           response.redirect("/");
+           return "";
+        }));
     }
 }
