@@ -1,7 +1,9 @@
 package com.theironyard.novauc;
 
+import spark.ModelAndView;
 import spark.Session;
 import spark.Spark;
+import spark.template.mustache.MustacheTemplateEngine;
 
 import java.util.HashMap;
 
@@ -13,15 +15,22 @@ public class Main {
 
         Spark.init();
 
-        Spark.get("/", (request, response) -> {
+        Spark.get("/", ((request, response) -> {
             Session session = request.session();
             String name = request.attribute("userName");
 
-            HashMap local = new HashMap();
-            //if username
-            //if ()
-            return "";
-        });
+            HashMap model = new HashMap();
+
+            if(!globalAccounts.containsKey(name)) {
+                return new ModelAndView(model,"index.html");
+            }
+            else {
+                //model.put("aVector", globalAccounts.get(name).getAvector());
+                return new ModelAndView(model, "another.html");
+            }
+        }),
+        new MustacheTemplateEngine()
+        );
 
         Spark.post("/create-user", (request, response) -> {
             String name = request.queryParams("createUser");
@@ -29,13 +38,15 @@ public class Main {
 
             Session session = request.session();
 
-            if (!name.equals(globalAccounts.get(name))) {
+            //if (!name.equals(globalAccounts.get(name)))
+            if (!globalAccounts.containsKey(name)) {
                 globalAccounts.put(name, new User(name, password));
-                session.attribute("createUser", name);
-                //should createUser on the line above, actually be userName?
+                session.attribute("userName", name);
+                //should createUser on the line above, actually be userName? I think yes
             }
             else {
-                if(name.equals(globalAccounts.get(name))) {
+                //if(name.equals(globalAccounts.get(name)))
+                if(globalAccounts.containsKey(name)) {
                     response.redirect("/login");
                 }
             }
@@ -51,12 +62,12 @@ public class Main {
             //if(name.equals(globalAccounts.get(name)))
             if(globalAccounts.containsKey(name)) {
                 if(password.equals(globalAccounts.get(name).getPassword())) {
-                    session.attribute("userLogin", name);
+                    session.attribute("userName", name);
 
                 }
             }
             else {
-                return "If you would like to create an account, then create an account";
+                return "If you would like to create an account, go back and create an account";
             }
             response.redirect("/");
             return "It's your fault";
