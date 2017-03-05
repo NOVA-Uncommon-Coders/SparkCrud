@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rettiwT home</title>
+    <script type="text/javascript" src="//books.google.com/books/previewlib.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+    <header>
+        {{^user}}
+        {{^users}}
+        <form action="/login" method="post" class="login">
+            <input type="text" placeholder="Name:" name="userName">
+            <input type="password" placeholder="Password:" name="password">
+            <button type="submit">Login</button>
+        </form>
+        {{/users}}
+        {{/user}}
+        <nav>
+            {{^users}}
+            <ul class="nav">
+                <li>
+                    <a title="home" href="home.html">Home</a>
+                </li>
+                {{^user}}   <!-- only display if not logged in -->
+                    <li>
+                        <a title="registration" href="registration.html">Register</a>
+                    </li>
+                {{/user}}
+                {{#user}}
+                        <!-- only display if logged in -->
+                <li>
+                    <a title="logout" href="logout.html">Logout</a>
+                </li>
+                <li>
+                    <a title="viewAll" href="viewall.html">View All</a>
+                </li>
+                {{/user}}
+                {{#user}}
+                    {{#adminStatus}}
+                <li>
+                    <p>|</p>
+                </li>
+                <li class="admin-nav">
+                    <a title ="users" href="users.html">Users</a>
+                </li>
+                <li class="admin-nav">
+                    <a title="books" href="books.html">Books</a>
+                </li>
+                    {{/adminStatus}}
+                {{/user}}
+            </ul>
+            {{/users}}
+            {{#users}}
+                {{#adminStatus}}
+                <ul class="nav">
+                    <li>
+                        <a title="home" href="home.html">Home</a>
+                    </li>
+                    <li>
+                        <a title="logout" href="logout.html">Logout</a>
+                    </li>
+                    <li>
+                        <a title="viewAll" href="viewall.html">View All</a>
+                    </li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li class="admin-nav">
+                        <a title ="users" href="users.html">Users</a>
+                    </li>
+                    <li class="admin-nav">
+                        <a title="books" href="books.html">Books</a>
+                    </li>
+                </ul>
+                {{/adminStatus}}
+            {{/users}}
+        </nav>
+    </header>               <!-- Section below is used for error checking on login -->
+    {{^user}}
+    {{#badPass}}
+        <p class="warning">Please enter a valid password</p>
+    {{/badPass}}
+    {{#noUser}}
+        <p class="warning">Invalid user name. Try again!</p>
+    {{/noUser}}
+    {{/user}}
+                            <!-- Only display below if user is on registration page -->
+    {{#registration}}
+        <span class="center-content">
+            <h1>New User Registration</h1>
+                            <!-- This section is used for error in registration -->
+            {{#userExist}}
+                <p class="warning-center">User name exist! Try again</p>
+            {{/userExist}}
+            {{#badEmail}}
+                <p class="warning-center">Please enter a valid email address!</p>
+            {{/badEmail}}
+            {{#shortPassword}}
+                <p class="warning-center">Password must be longer than 8 characters</p>
+            {{/shortPassword}}
+            {{#missingBook}}
+                <p class="warning-center">Please select a book genre</p>
+            {{/missingBook}}
+                             <!-- End display of error messages -->
+            <form action="/register" method="post">
+                <div>
+                    <input type="text" placeholder="User Name:" name="userName">
+                    <input type="password" placeholder="Password:" name="password">
+                </div>
+                <div>
+                    <input type="text" placeholder="Email:" name="email">
+                </div>
+                <div>
+                    <select name="bookInterest">
+                        <option selected disabled>Book Interest</option>
+                        <option value="Classic">Classic</option>
+                        <option value="Sci-fi">Sci-Fi</option>
+                        <option value="Modern">Modern</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Reference">Reference</option>
+                    </select>
+                </div>
+                <hr/>
+                <div>
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </span>
+    {{/registration}}
+                            <!-- Only display below if user is logged in @home -->
+    {{#user}}
+    {{^adminStatus}}
+    {{#userHomePage}}
+        <h1 class="center-content">Welcome home, {{name}}</h1>
+            <div class="center-content">
+            <p>Your interest: <b>{{bookInterest}}</b></p>
+            <form action="/editPref" method="post">
+                <select name="newPref">
+                    <option selected disabled>Book Interest</option>
+                    <option value="Classic">Classic</option>
+                    <option value="Sci-fi">Sci-Fi</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Reference">Reference</option>
+                </select>
+                <button type="submit">Edit</button>
+            </form>
+        </div>
+        <h2>Your books: </h2>
+        {{#books}}
+            <div class="book-wrapper">
+                <div class="text-view">
+                <h3>Title: <b>{{title}}</b></h3>
+                <div >
+                    <p>Author: <b>{{author}}</b></p>
+                    <p>ISBN10#: <b>{{isbn10}}</b></p>
+                </div>
+                <form action="/returnBook" method="post">
+                    <input type="hidden" value="{{isbn10}}" name="isbn10">
+                    <button type="submit">Return</button>
+                </form>
+                </div>
+                <div class="book-view">
+                    <script type="text/javascript">
+                        GBS_insertEmbeddedViewer('ISBN:{{isbn10}}',450,375);
+                    </script>
+                </div>
+            </div>
+                <br/>
+                <hr/>
+        {{/books}}
+    {{/userHomePage}}
+
+    {{#userViewAllPage}}
+        {{#bookKeeper}}
+            {{#books}}
+                <p>Title: <b>{{title}}</b></p>
+                <p><sub>Author: <b>{{author}}</b></sub></p>
+                <p>ISBN10#: <b>{{isbn10}}</b></p>
+                <p>Amount: <b>{{amount}}</b> | Checked Out: <b>{{checkedOutAmount}}</b></p>
+                <form action="/checkOut" method="post">
+                    <input type="hidden" value="{{isbn10}}" name="isbn10">
+                    <button type="submit">Check out</button>
+                </form>
+                <hr/>
+            {{/books}}
+        {{/bookKeeper}}
+    {{/userViewAllPage}}
+    {{/adminStatus}}
+    {{/user}}
+                            <!-- Only display below if you are an Admin -->
+                            <!-- Only display below if on Users -->
+    {{#users}}
+        {{#adminStatus}}
+            {{#adminUsersPage}}
+            <h2>All users</h2>
+                {{#users}}
+                    {{^adminStatus}}
+                        <h3>User: {{name}}</h3>
+                        <form action="/removeUser" method="post">
+                            <input type="hidden" value="{{name}}" name="removeUser">
+                            <button type="submit">Remove User</button>
+                        </form>
+                        <div>
+                            <p>Email: {{email}}   |   Book Interest: {{bookInterest}}</p>
+                            <h4>Checked out books: </h4>
+                            {{#books}}
+                                <div>
+                                    <p>{{title}}</p>
+                                    <form action="/forceBookReturn" method="post">
+                                        <input type="hidden" value="{{isbn10}}" name="isbn10">
+                                        <input type="hidden" value="{{userCheckOut}}" name="userCheckOut">
+                                        <button type="submit">Return Book</button>
+                                    </form>
+                                    <p>- - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+                                </div>
+                            {{/books}}
+                            <hr/>
+                        </div>
+                    {{/adminStatus}}
+                    {{/users}}
+            {{/adminUsersPage}}
+                                            <!-- Only display below if you are on Books Page for Admin -->
+            {{#adminBooksPage}}
+                {{#users}}
+                    {{#adminStatus}}
+                        <h2>Book inventory</h2>
+                        <form action="/addBook" method="post">
+                            <input type="text" placeholder="Book title: " name="bookTitle">
+                            <input type="text" placeholder="Author: " name="author">
+                            <select name="bookGenre">
+                                <option selected disabled>Genre</option>
+                                <option value="Classic">Classic</option>
+                                <option value="Sci-fi">Sci-Fi</option>
+                                <option value="Modern">Modern</option>
+                                <option value="Horror">Horror</option>
+                                <option value="Mystery">Mystery</option>
+                                <option value="Reference">Reference</option>
+                            </select>
+                            <input type="number" placeholder="Amount" name="bookCount">
+                            <button type="submit">Add book</button>
+                        </form>
+                        <hr/>
+                        <h3>Current inventory</h3>
+                        {{#books}}
+                            <p>Title: <b>{{title}}</b></p>
+                            <p><sub>Author: <b>{{author}}</b></sub></p>
+                            <p>ISBN10#: {{isbn10}}</p>
+                            <p>Amount: <b>{{amount}}</b> | Checked Out: <b>{{checkedOutAmount}}</b></p>
+                            <hr/>
+                        {{/books}}
+                    {{/adminStatus}}
+                {{/users}}
+            {{/adminBooksPage}}
+        {{/adminStatus}}
+    {{/users}}
+
+</body>
+</html>
