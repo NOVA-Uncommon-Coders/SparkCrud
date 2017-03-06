@@ -52,7 +52,9 @@ public class Main {
                         m.put("noUser", session.attribute("noUser"));
                         m.put("badPass", session.attribute("badPass"));
                         m.put("userName", null);
-                    } else {
+                    } else if (users.get(userName).isAdminStatus()){
+                        m.put("users", users.get(userName));
+                    }else {
                         users.get(userName).setUserViewAllPage(false);
                         users.get(userName).setUserHomePage(true);
                         users.get(userName).setAdminBooksPage(false);
@@ -398,6 +400,29 @@ public class Main {
                     response.redirect("/home.html");
                     return "";
 
+                })
+        );
+        Spark.post(
+                "/removeBook",
+                ((request, response) -> {
+                    Session session = request.session();
+                    String userName = session.attribute("userName");
+
+                    String isbn10 = request.queryParams("bookIsbn10");
+                    if (users.get(userName).isAdminStatus()){
+                        Book removalBook = null;
+                        for (Book book: users.get(userName).getBooks()){
+                            if (book.getIsbn10().equals(isbn10)){
+                                removalBook = book;
+                                break;
+                            }
+                        }
+                        if (removalBook != null){
+                            users.get(userName).getBooks().remove(removalBook);
+                        }
+                    }
+                    response.redirect("/books.html");
+                    return "";
                 })
         );
     }

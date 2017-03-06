@@ -61,9 +61,6 @@
                         <a title="logout" href="logout.html">Logout</a>
                     </li>
                     <li>
-                        <a title="viewAll" href="viewall.html">View All</a>
-                    </li>
-                    <li>
                         <p>|</p>
                     </li>
                     <li class="admin-nav">
@@ -251,6 +248,10 @@
                             <p>ISBN10#: {{isbn10}}</p>
                             <p>Amount: <b>{{amount}}</b> | Checked Out: <b>{{checkedOutAmount}}</b></p>
                             <hr/>
+                            <form action="/removeBook" method="post">
+                                <input type="hidden" value="{{isbn10}}" name="bookIsbn10">
+                                <button type="submit">Remove</button>
+                            </form>
                         {{/books}}
                     {{/adminStatus}}
                 {{/users}}
