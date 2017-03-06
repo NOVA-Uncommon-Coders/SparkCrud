@@ -1,25 +1,24 @@
 <html>
 <body>
-{{userName}}
+{{#userName}}
+{{.}}
 <form action="/logout" method="post">
     <button type="logout">Logout</button>
 </form>
-<ol>
-    {{#userName}}
-    <ul>{{.}}</ul>
-    {{/userName}}
-</ol>
 
 
-{{^userName}}
-Do stuff
-{{/userName}}
+<form action="/new-entry" method="post">
+      <input type="text" placeholder="write whatev" name="newEntry">
+    <button type="submit">Submit</button>
+</form>
 
 
 
-{{#userName}}
-Welcome, {{.}}!
-Don't do stuff
+{{#entries}}
+<ul>{{.}}</ul>
+{{/entries}}
+
+
 {{/userName}}
 
 </body>

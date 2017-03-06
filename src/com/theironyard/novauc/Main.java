@@ -33,9 +33,6 @@ public class Main {
             else {
                 System.out.println("2");
                 //ModelAndView only knows to model and view what's passed to it
-                //we're passing a hashmap and an html page
-                //if userName (route?) and name object aren't in the hashmap
-                //then
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
                 return new ModelAndView(userActivity, "tracker.html");
@@ -66,7 +63,7 @@ public class Main {
 
         Spark.post("/getIn", (request, response) -> {
             System.out.println("got into /getIn");
-            accountInfo.put("mike", new User("mike", "f"));
+            accountInfo.put("default", new User("default", "d"));
             String name = request.queryParams("userLogin");
             String password = request.queryParams("passwordLogin");
             Session session = request.session();
@@ -89,7 +86,8 @@ public class Main {
             Session session = request.session();
             String name = session.attribute("userName");
             String message = request.queryParams("newEntry");
-            //accountInfo.get(name).add(message);
+            entries.add(message);
+            response.redirect("/");
             return "";
         }));
 
