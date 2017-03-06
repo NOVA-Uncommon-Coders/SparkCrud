@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html>
 <body>
 {{userName}}
 <form action="/logout" method="post">
     <button type="logout">Logout</button>
 </form>
+<ol>
+    {{#userName}}
+    <ul>{{.}}</ul>
+    {{/userName}}
+</ol>
+
+
+{{^userName}}
+Do stuff
+{{/userName}}
+
+
+
+{{#userName}}
+Welcome, {{.}}!
+Don't do stuff
+{{/userName}}
 
 </body>
 </html>

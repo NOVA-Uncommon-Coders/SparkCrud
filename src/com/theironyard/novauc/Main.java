@@ -5,84 +5,93 @@ import spark.Session;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
 
-    public static HashMap<String, User> globalAccounts = new HashMap<>();
+    public static HashMap<String, User> accountInfo = new HashMap<>();
+    public static ArrayList<String> entries = new ArrayList<>();
+
 
     public static void main(String[] args) {
 
         Spark.init();
 
         Spark.get("/", ((request, response) -> {
-            System.out.println("got into ///");
+            System.out.println("got into /");
             Session session = request.session();
             String name = session.attribute("userName");
 
-            HashMap model = new HashMap();
+            HashMap userActivity = new HashMap();
+            ArrayList storage = new ArrayList();
 
-            if(!globalAccounts.containsKey(name)) {
+            if(!accountInfo.containsKey(name)) {
                 System.out.println("1");
-                return new ModelAndView(model,"index.html");
+                return new ModelAndView(userActivity,"index.html");
             }
             else {
                 System.out.println("2");
-                model.put("aVector", globalAccounts.get(name).getAvector());
-                return new ModelAndView(model, "tracker.html");
+                //ModelAndView only knows to model and view what's passed to it
+                //we're passing a hashmap and an html page
+                //if userName (route?) and name object aren't in the hashmap
+                //then
+                userActivity.put("entries", entries);
+                userActivity.put("userName", name);
+                return new ModelAndView(userActivity, "tracker.html");
             }
         }),
         new MustacheTemplateEngine()
         );
 
-        System.out.println("A");
+        /*
 
         Spark.post("/create-user", (request, response) -> {
-            System.out.println("got into /create-user");
-            String name = request.queryParams("createUser");
-            String password = request.queryParams("createPassword");
+            //System.out.println("got into /create-user");
+            String name = request.queryParams("userCreate");
+            String password = request.queryParams("passwordCreate");
 
             Session session = request.session();
 
-            //if (!name.equals(globalAccounts.get(name)))
-            if (!globalAccounts.containsKey(name)) {
-                System.out.println("into create new");
+            if (!accountInfo.containsKey(name)) {
+                //System.out.println("into create new");
                 session.attribute("userName", name);
-                globalAccounts.put(name, new User(name, password));
-                //should createUser on the line above, actually be userName? I think yes
+                accountInfo.put(name, new User(name, password));
             }
-            /*
-            else {
-                //if(name.equals(globalAccounts.get(name)))
-                if(globalAccounts.containsKey(name)) {
-                    response.redirect("/login");
-                }
-            }
-            */
             response.redirect("/");
             return "failure at the end of /create-user";
         });
 
-        Spark.post("/login", (request, response) -> {
-            System.out.println("got into /login");
-            globalAccounts.put("mike", new User("mike", "f"));
+        */
+
+        Spark.post("/getIn", (request, response) -> {
+            System.out.println("got into /getIn");
+            accountInfo.put("mike", new User("mike", "f"));
             String name = request.queryParams("userLogin");
             String password = request.queryParams("passwordLogin");
             Session session = request.session();
 
-            //if(name.equals(globalAccounts.get(name)))
-            if(globalAccounts.containsKey(name)) {
-                if(password.equals(globalAccounts.get(name).getPassword())) {
+            if(accountInfo.containsKey(name)) {
+                if(password.equals(accountInfo.get(name).getPassword())) {
                     session.attribute("userName", name);
-
                 }
             }
             else {
-                return "If you would like to create an account, go back and create an account";
+                session.attribute("userName", name);
+                accountInfo.put(name, new User(name, password));
             }
             response.redirect("/");
-            return "failure at the end of /login";
+            return "failure at the end of /getIn";
         });
+
+
+        Spark.post("/new-entry", ((request, response) -> {
+            Session session = request.session();
+            String name = session.attribute("userName");
+            String message = request.queryParams("newEntry");
+            //accountInfo.get(name).add(message);
+            return "";
+        }));
 
         Spark.post("/logout", ((request, response) -> {
            Session session = request.session();
