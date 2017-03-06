@@ -28,8 +28,6 @@ public class User {
         this.email = email;
         this.bookInterest = bookInterest;
         this.adminStatus = false;
-        books.add(new Book("title", "author", "date", name));
-        books.add(new Book("Monte Cristo", "Dumas", "OLD", name));
     }
 
     public boolean isUserHomePage() {

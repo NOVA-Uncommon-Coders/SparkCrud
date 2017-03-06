@@ -22,8 +22,6 @@ public class Main {
         Spark.init();
         users.put("Mike", new User("Mike", "m", "me@here.com", "sci-fi"));
         users.get("Mike").setAdminStatus(true);
-        users.put("will", new User("will", "m", "you@here.com", "classic"));
-        users.put("someoneElse", new User("someoneElse", "m", "else@here.com", "modern"));
 
         Spark.get(
                 "/",
