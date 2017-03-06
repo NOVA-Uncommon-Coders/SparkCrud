@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="start.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<nav>
+    HELLO WORLD
+</nav>
+
+<br>
+{{^userName}}
+<form action="/login" method="post">
+    <input type="text" placeholder="Enter your name" name="loginName"/>
+    <button type="submit">Login</button>
+</form>
+<br>
+
+
+{{/userName}}
+
+{{#userName}}
+Welcome, {{.}}!
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br>
+
+{{/userName}}
+<br>
+{{#messages}}
+<a href="/?replyId={{id}}">{{author}}: {{text}}</a><br>
+{{/messages}}
