@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Main {
 
     public static HashMap<String, User> accountInfo = new HashMap<>();
-    public static ArrayList<String> entries = new ArrayList<>();
+    public static ArrayList<Entry> entries = new ArrayList<>();
 
 
     public static void main(String[] args) {
@@ -32,7 +32,6 @@ public class Main {
             }
             else {
                 System.out.println("2");
-                //ModelAndView only knows to model and view what's passed to it
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
                 return new ModelAndView(userActivity, "tracker.html");
@@ -40,26 +39,6 @@ public class Main {
         }),
         new MustacheTemplateEngine()
         );
-
-        /*
-
-        Spark.post("/create-user", (request, response) -> {
-            //System.out.println("got into /create-user");
-            String name = request.queryParams("userCreate");
-            String password = request.queryParams("passwordCreate");
-
-            Session session = request.session();
-
-            if (!accountInfo.containsKey(name)) {
-                //System.out.println("into create new");
-                session.attribute("userName", name);
-                accountInfo.put(name, new User(name, password));
-            }
-            response.redirect("/");
-            return "failure at the end of /create-user";
-        });
-
-        */
 
         Spark.post("/getIn", (request, response) -> {
             System.out.println("got into /getIn");
@@ -86,8 +65,13 @@ public class Main {
             Session session = request.session();
             String name = session.attribute("userName");
             String message = request.queryParams("newEntry");
-            //accountInfo.put();
-            entries.add(message);
+            String messageId = request.queryParams("messageId");
+
+            int IdForMessage =
+
+            Entry entryObj = new Entry(entries.size(), replyId, name, message);
+            //System.out.println(entryObj);
+            entries.add(entryObj);
             response.redirect("/");
             return "";
         }));
@@ -95,7 +79,6 @@ public class Main {
         Spark.post("/delete-message", (request, response) -> {
            Session session = request.session();
            String name = session.attribute("userName");
-           //accountInfo.get(name);
            entries.remove(entries.size()-1);  //removes only the latest post
            response.redirect("/");
            return "";
