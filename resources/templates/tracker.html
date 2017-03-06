@@ -12,14 +12,28 @@
     <button type="submit">Submit</button>
 </form>
 
+<form action="/edit-message" method="post">
+    <input type="text" placeholder="edit your message" name="editMessage">
+    <button type="submit">Submit</button>
+</form>
 
 
 {{#entries}}
-<ul>{{.}}</ul>
+<ul>
+    {{.}}<form action="/delete-message" method="post">
+    <input type="hidden" value="{{messageID}}" name="messageID">
+    <button type="submit">Delete</button>
+    </form>
+     </ul>
+{{/entries}}
+
+{{/userName}}
+
+{{#entries}}
+other people's things here.
 {{/entries}}
 
 
-{{/userName}}
 
 </body>
 </html>

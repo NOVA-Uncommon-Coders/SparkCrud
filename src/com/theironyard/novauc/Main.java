@@ -86,10 +86,20 @@ public class Main {
             Session session = request.session();
             String name = session.attribute("userName");
             String message = request.queryParams("newEntry");
+            //accountInfo.put();
             entries.add(message);
             response.redirect("/");
             return "";
         }));
+
+        Spark.post("/delete-message", (request, response) -> {
+           Session session = request.session();
+           String name = session.attribute("userName");
+           //accountInfo.get(name);
+           entries.remove(entries.size()-1);  //removes only the latest post
+           response.redirect("/");
+           return "";
+        });
 
         Spark.post("/logout", ((request, response) -> {
            Session session = request.session();
