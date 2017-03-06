@@ -1,0 +1,35 @@
+<html>
+<body>
+{{^userName}}
+<form action="/logout" method="post">
+    <button type="submit">Login</button>
+</form>
+
+<form action="/create-comedy" method="post">
+    <input type="text" placeholder="comedy album" name="comedyName" width="200"/>
+    <select name="comedyGenre">
+        <option selected disabled>Genre</option>
+        <option value="situational">Situational</option>
+        <option value="deadpan">Deadpan</option>
+        <option value="blue">Blue</option>
+        <option value="satire">Satire</option>
+    </select>
+    <select name="comedyFormat">
+        <option selected disabled>Platform</option>
+        <option value="vinyl">Vinyl</option>
+        <option value="cd">CD</option>
+        <option value="dvd">DVD</option>
+        <option value="bluray">Bluray</option>
+    </select>
+    <input type="number" placeholder="Duration" name="comedyDuration"/>
+    <button type="submit">Submit</button>
+</form>
+
+<ol>
+    {{#comedyAlbums}}
+    <li>{{author}} - {{name}} - {{genre}} - {{duration}}</li>
+    {{/comedyAlbums}}
+</ol>
+</body>
+</html>
+
