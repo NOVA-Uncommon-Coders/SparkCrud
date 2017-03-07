@@ -19,12 +19,15 @@
 
 
 {{#entries}}
-<ul>
-    {{author}}:{{text}}<form action="/delete-message" method="post">
+<ul style="list-style: none;">
+    <li>
+        <p>{{author}}:  {{text}}</p>
+    <form action="/delete-message" method="post">
     <input type="hidden" value="{{id}}" name="mess"/>
     <button type="submit">Delete</button>
     </form>
-     </ul>
+    </li>
+</ul>
 {{/entries}}
 
 {{/userName}}

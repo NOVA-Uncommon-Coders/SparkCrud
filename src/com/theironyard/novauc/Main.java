@@ -72,7 +72,7 @@ public class Main {
             Session session = request.session();
             String name = session.attribute("userName");
             String message = request.queryParams("newEntry");
-            Entry entryObj = new Entry(entries.size(), name, message);
+            Entry entryObj = new Entry(name, message);
             //System.out.println(entryObj);
             //session.attribute("messageID", entries.size());
             entries.add(entryObj);
@@ -82,10 +82,10 @@ public class Main {
 
         Spark.post("/delete-message", (request, response) -> {
            Session session = request.session(); //session not needed
-           String delete = request.queryParams("mess");
+           int delete = Integer.valueOf(request.queryParams("mess"));
            Entry hippopotamus = new Entry();
            for (Entry picker : entries) {
-               if (picker.id == Integer.valueOf(delete)) {
+               if (picker.getId() ==  delete) {
                    hippopotamus = picker;
                    // this for loop should identify the message with the proper id
                }
