@@ -86,15 +86,11 @@ public class Main {
            Entry hippopotamus = new Entry();
            for (Entry picker : entries) {
                if (picker.id == Integer.valueOf(delete)) {
-                   hippopotamus(picker.id, Entry.getAuthor(), Entry.getText());
+                   hippopotamus = picker;
                    // this for loop should identify the message with the proper id
                }
            }
-//           System.out.println(delete);
-//           System.out.println("This is size before" + entries.size());
-           entries.remove((int) Integer.valueOf(delete));
-           //use a for loop to identify the object frmo teh list and grab the id, because it will change
-//           System.out.println("This is size after" + entries.size());
+           entries.remove(hippopotamus);
 
            response.redirect("/");
            return "";

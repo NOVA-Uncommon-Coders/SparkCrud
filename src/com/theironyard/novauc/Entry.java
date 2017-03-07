@@ -6,6 +6,9 @@ public class Entry {
     String author;
     String text;
 
+    public Entry() {
+    }
+
     public Entry(int id, String author, String text) {
         this.id = id;
         this.author = author;
