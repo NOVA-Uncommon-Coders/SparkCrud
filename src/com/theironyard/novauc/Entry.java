@@ -11,4 +11,12 @@ public class Entry {
         this.author = author;
         this.text = text;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getText() {
+        return text;
+    }
 }

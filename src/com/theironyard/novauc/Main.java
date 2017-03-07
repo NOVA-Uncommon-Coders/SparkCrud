@@ -25,6 +25,7 @@ public class Main {
 
             HashMap userActivity = new HashMap();
             ArrayList storage = new ArrayList();
+            //storage.add(1,"stuff");
 
             if(!accountInfo.containsKey(name)) {
                 //System.out.println("1");
@@ -34,8 +35,12 @@ public class Main {
                 //System.out.println("2");
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
-                //userActivity.put("messageID", entries.size());
+
+                //userActivity.put("messageID",)
+                userActivity.put("messageID", entries.size());
                 System.out.println("currently in userActivity, the entry is at " + entries.size());
+                //TODO figure out how to grab the message from the person signed in, by
+                // method chaining to the statement below
                 return new ModelAndView(userActivity, "tracker.html");
             }
         }),
@@ -76,21 +81,21 @@ public class Main {
         }));
 
         Spark.post("/delete-message", (request, response) -> {
-           Session session = request.session();
-           String delete = request.queryParams("messageID");
-           System.out.println(delete);
+           Session session = request.session(); //session not needed
+           String delete = request.queryParams("mess");
+           Entry hippopotamus = new Entry();
+           for (Entry picker : entries) {
+               if (picker.id == Integer.valueOf(delete)) {
+                   hippopotamus(picker.id, Entry.getAuthor(), Entry.getText());
+                   // this for loop should identify the message with the proper id
+               }
+           }
+//           System.out.println(delete);
+//           System.out.println("This is size before" + entries.size());
+           entries.remove((int) Integer.valueOf(delete));
+           //use a for loop to identify the object frmo teh list and grab the id, because it will change
+//           System.out.println("This is size after" + entries.size());
 
-
-
-
-
-            //String name = session.attribute("userName");
-           //session.attribute("messageID", entries.size());
-           //String deletede = session.attribute("messageID");
-           //entries.remove(Integer.valueOf(delete));  //removes only the latest post
-           //get the number from messageID, then match it up against the
-            // index in entries, -1
-           //entries.remove(Integer.valueOf(delete));
            response.redirect("/");
            return "";
         });

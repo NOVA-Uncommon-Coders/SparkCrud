@@ -20,8 +20,8 @@
 
 {{#entries}}
 <ul>
-    {{.}}<form action="/delete-message" method="post">
-    <input type="hidden" value="{{messageID}}" name="messageID">
+    {{author}}:{{text}}<form action="/delete-message" method="post">
+    <input type="hidden" value="{{id}}" name="mess"/>
     <button type="submit">Delete</button>
     </form>
      </ul>
