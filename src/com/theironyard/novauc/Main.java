@@ -28,7 +28,6 @@ public class Main {
             else {
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
-                //System.out.println("currently in userActivity, the entry is at " + entries.size());
                 return new ModelAndView(userActivity, "tracker.html");
             }
         }),
@@ -64,7 +63,6 @@ public class Main {
         }));
 
         Spark.post("/edit-message", (request, response) -> {
-            Session session = request.session();
             String editor = request.queryParams("editMessageT");
 
             int edit = Integer.valueOf(request.queryParams("messID"));
@@ -92,7 +90,7 @@ public class Main {
         );
 
         Spark.post("/delete-message", (request, response) -> {
-           int delete = Integer.valueOf(request.queryParams("messy"));
+           int delete = Integer.valueOf(request.queryParams("messDel"));
            Entry entrance = new Entry();
            for (Entry picker : entries) {
                if (picker.getId() ==  delete) {

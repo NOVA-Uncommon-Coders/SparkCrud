@@ -17,13 +17,10 @@
     <li>
         <p>{{author}}:  {{text}}</p>
 
-        <!--<form action="/edit-message" method="get">-->
-            <!--<input type="hidden" value="{{id}}" name="messi"/>-->
             <a href="/anotherplace/{{id}}">edit</a><br>
-        <!--</form>-->
 
     <form action="/delete-message" method="post">
-    <input type="hidden" value="{{id}}" name="messy"/>
+    <input type="hidden" value="{{id}}" name="messDel"/>
     <button type="submit">Delete</button>
     </form>
 
@@ -32,11 +29,6 @@
 {{/entries}}
 
 {{/userName}}
-
-{{#entries}}
-{{/entries}}
-
-
 
 </body>
 </html>
