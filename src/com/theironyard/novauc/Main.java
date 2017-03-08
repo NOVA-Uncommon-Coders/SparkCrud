@@ -28,7 +28,7 @@ public class Main {
             else {
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
-                System.out.println("currently in userActivity, the entry is at " + entries.size());
+                //System.out.println("currently in userActivity, the entry is at " + entries.size());
                 return new ModelAndView(userActivity, "tracker.html");
             }
         }),
@@ -66,18 +66,29 @@ public class Main {
 
         Spark.post("/edit-message", (request, response) -> {
             Session session = request.session();
-            String name = session.attribute("userName");
+
             //String message = request.queryParams("newEntry");
-            String abcd = request.queryParams("editMessageT");
-            int edit = Integer.valueOf(request.queryParams("messi"));
-            Entry hippopotamus = new Entry();
+
+            //when is edit being grabbed? picked.getId() isn't comparing to edit, i think.
+            //edit needs to be implemented, so that it has a value to compare against picker
+            //that way the value picked can be assigned to hippo, which can then be
+            //converted to an int
+
+
+            //need  an Entry object that captures the name and text
+            String name = session.attribute("userName");
+            String editor = request.queryParams("editMessageT");
+            Entry door = new Entry(name, editor);
+
+            int edit = Integer.valueOf(request.queryParams("messID"));
+
+            Entry entrance = new Entry();
             for (Entry picker : entries) {
                 if (picker.getId() ==  edit) {
-                    hippopotamus = picker;
+                    entrance = picker;
                 }
             }
-            //TODO dont actually remove hippo, edit it or something
-            entries.remove(hippopotamus);
+            entries.set(entrance.getId(), door);
             response.redirect("/");
             return "";
         });
@@ -96,13 +107,13 @@ public class Main {
 
         Spark.post("/delete-message", (request, response) -> {
            int delete = Integer.valueOf(request.queryParams("messy"));
-           Entry hippopotamus = new Entry();
+           Entry entrance = new Entry();
            for (Entry picker : entries) {
                if (picker.getId() ==  delete) {
-                   hippopotamus = picker;
+                   entrance = picker;
                }
            }
-           entries.remove(hippopotamus);
+           entries.remove(entrance);
            response.redirect("/");
            return "";
         });
