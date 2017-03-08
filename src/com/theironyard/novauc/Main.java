@@ -36,7 +36,6 @@ public class Main {
         );
 
         Spark.post("/getIn", (request, response) -> {
-            accountInfo.put("default", new User("default", "d"));
             String name = request.queryParams("userLogin");
             String password = request.queryParams("passwordLogin");
             Session session = request.session();
@@ -66,41 +65,28 @@ public class Main {
 
         Spark.post("/edit-message", (request, response) -> {
             Session session = request.session();
-
-            //String message = request.queryParams("newEntry");
-
-            //when is edit being grabbed? picked.getId() isn't comparing to edit, i think.
-            //edit needs to be implemented, so that it has a value to compare against picker
-            //that way the value picked can be assigned to hippo, which can then be
-            //converted to an int
-
-
-            //need  an Entry object that captures the name and text
-            String name = session.attribute("userName");
             String editor = request.queryParams("editMessageT");
-            Entry door = new Entry(name, editor);
 
             int edit = Integer.valueOf(request.queryParams("messID"));
 
-            Entry entrance = new Entry();
+            Entry entrance = null;
             for (Entry picker : entries) {
                 if (picker.getId() ==  edit) {
                     entrance = picker;
+                    break;
                 }
             }
-            entries.set(entrance.getId(), door);
+            if (entrance != null && editor != null){
+                entrance.setText(editor);
+            }
             response.redirect("/");
             return "";
         });
 
         Spark.get("/anotherplace/:id", ((request, response) -> {
-            Session session = request.session();
             String idJunk = request.params("id");
-//            int someObject = Integer.valueOf(request.queryParams("messi"));
-//            String abcd = request.queryParams("editMessageT");
             HashMap whatever = new HashMap();
             whatever.put("id",idJunk);
-//            response.redirect("/anameaboutedit");
             return new ModelAndView(whatever, "anotherplace.html");
         }), new MustacheTemplateEngine()
         );

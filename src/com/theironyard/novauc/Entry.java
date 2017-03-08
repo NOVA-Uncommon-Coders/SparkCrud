@@ -28,4 +28,24 @@ public class Entry {
     public String getText() {
         return text;
     }
+
+    public static int getI() {
+        return i;
+    }
+
+    public static void setI(int i) {
+        Entry.i = i;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
