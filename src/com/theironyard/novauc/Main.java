@@ -19,28 +19,16 @@ public class Main {
         Spark.init();
 
         Spark.get("/", ((request, response) -> {
-            //System.out.println("got into /");
             Session session = request.session();
             String name = session.attribute("userName");
-
             HashMap userActivity = new HashMap();
-            ArrayList storage = new ArrayList();
-            //storage.add(1,"stuff");
-
             if(!accountInfo.containsKey(name)) {
-                //System.out.println("1");
                 return new ModelAndView(userActivity,"index.html");
             }
             else {
-                //System.out.println("2");
                 userActivity.put("entries", entries);
                 userActivity.put("userName", name);
-
-                //userActivity.put("messageID",)
-                userActivity.put("messageID", entries.size());
                 System.out.println("currently in userActivity, the entry is at " + entries.size());
-                //TODO figure out how to grab the message from the person signed in, by
-                // method chaining to the statement below
                 return new ModelAndView(userActivity, "tracker.html");
             }
         }),
@@ -48,7 +36,6 @@ public class Main {
         );
 
         Spark.post("/getIn", (request, response) -> {
-            //System.out.println("got into /getIn");
             accountInfo.put("default", new User("default", "d"));
             String name = request.queryParams("userLogin");
             String password = request.queryParams("passwordLogin");
@@ -67,31 +54,55 @@ public class Main {
             return "failure at the end of /getIn";
         });
 
-
         Spark.post("/new-entry", ((request, response) -> {
             Session session = request.session();
             String name = session.attribute("userName");
             String message = request.queryParams("newEntry");
             Entry entryObj = new Entry(name, message);
-            //System.out.println(entryObj);
-            //session.attribute("messageID", entries.size());
             entries.add(entryObj);
             response.redirect("/");
             return "";
         }));
 
+        Spark.post("/edit-message", (request, response) -> {
+            Session session = request.session();
+            String name = session.attribute("userName");
+            //String message = request.queryParams("newEntry");
+            String abcd = request.queryParams("editMessageT");
+            int edit = Integer.valueOf(request.queryParams("messi"));
+            Entry hippopotamus = new Entry();
+            for (Entry picker : entries) {
+                if (picker.getId() ==  edit) {
+                    hippopotamus = picker;
+                }
+            }
+            //TODO dont actually remove hippo, edit it or something
+            entries.remove(hippopotamus);
+            response.redirect("/");
+            return "";
+        });
+
+        Spark.get("/anotherplace/:id", ((request, response) -> {
+            Session session = request.session();
+            String idJunk = request.params("id");
+//            int someObject = Integer.valueOf(request.queryParams("messi"));
+//            String abcd = request.queryParams("editMessageT");
+            HashMap whatever = new HashMap();
+            whatever.put("id",idJunk);
+//            response.redirect("/anameaboutedit");
+            return new ModelAndView(whatever, "anotherplace.html");
+        }), new MustacheTemplateEngine()
+        );
+
         Spark.post("/delete-message", (request, response) -> {
-           Session session = request.session(); //session not needed
-           int delete = Integer.valueOf(request.queryParams("mess"));
+           int delete = Integer.valueOf(request.queryParams("messy"));
            Entry hippopotamus = new Entry();
            for (Entry picker : entries) {
                if (picker.getId() ==  delete) {
                    hippopotamus = picker;
-                   // this for loop should identify the message with the proper id
                }
            }
            entries.remove(hippopotamus);
-
            response.redirect("/");
            return "";
         });

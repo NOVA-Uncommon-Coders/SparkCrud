@@ -12,20 +12,21 @@
     <button type="submit">Submit</button>
 </form>
 
-<form action="/edit-message" method="post">
-    <input type="text" placeholder="edit your message" name="editMessage">
-    <button type="submit">Submit</button>
-</form>
-
-
 {{#entries}}
 <ul style="list-style: none;">
     <li>
         <p>{{author}}:  {{text}}</p>
+
+        <!--<form action="/edit-message" method="get">-->
+            <!--<input type="hidden" value="{{id}}" name="messi"/>-->
+            <a href="/anotherplace/{{id}}">edit</a><br>
+        <!--</form>-->
+
     <form action="/delete-message" method="post">
-    <input type="hidden" value="{{id}}" name="mess"/>
+    <input type="hidden" value="{{id}}" name="messy"/>
     <button type="submit">Delete</button>
     </form>
+
     </li>
 </ul>
 {{/entries}}

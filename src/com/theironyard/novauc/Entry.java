@@ -17,8 +17,6 @@ public class Entry {
         id = i++;
     }
 
-
-
     public int getId() {
         return id;
     }
