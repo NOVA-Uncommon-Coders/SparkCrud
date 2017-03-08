@@ -13,18 +13,13 @@ import java.util.Map;
 public class Main {
 
     static Map<String, User> users = new HashMap<>();
-    static Map<String,Food> foodz = new HashMap<>();
-    //static User user;
-
 
     public static void main(String[] args) {
 
         Spark.staticFileLocation("/templates");
 
-
         Spark.init();
-        addTestUsers();
-        addBlanks();
+
         Spark.get(
                 "/",
                 ((request, response) -> {
@@ -44,14 +39,6 @@ public class Main {
                     if (currentUser == null) {
                         return new ModelAndView(m, "start.html");
                     }
-
-//                    String replyId = request.queryParams("replyId");
-//                    int replyIdNum = -1;
-//                    if (replyId != null) {
-//                        replyIdNum = Integer.valueOf(replyId);
-//                    }
-
-
 
                     for(Food foodRotation: currentUser.foodList){
                         if(foodRotation.getMealName().equalsIgnoreCase("breakfast")){
@@ -95,13 +82,19 @@ public class Main {
                     if(currentUser == null){
                         throw new Exception("User is not logged in");
                     }
+                    if(request.queryParams("calories").isEmpty()||request.queryParams("fat").isEmpty()||request.queryParams("mealName").isEmpty()||request.queryParams("carbs").isEmpty()||request.queryParams("protein").isEmpty()||request.queryParams("typeOfMeal").isEmpty()){
+                        response.redirect("/");
+                        return"";
+                    }
                     String mealName = request.queryParams("mealName");
                     int calories = Integer.valueOf(request.queryParams("calories"));
                     int fat = Integer.valueOf(request.queryParams("fat"));
                     int carbs = Integer.valueOf(request.queryParams("carbs"));
                     int protein = Integer.valueOf(request.queryParams("protein"));
                     String typeOfMeal = request.queryParams("typeOfMeal");
-                    Food foodEntry = new Food(mealName,calories,carbs,fat,protein,typeOfMeal,userName);
+                    int postId = currentUser.foodList.size();
+
+                    Food foodEntry = new Food(mealName,calories,carbs,fat,protein,typeOfMeal,userName,postId);
 
                     currentUser.foodList.add(foodEntry);
                     response.redirect("/");
@@ -117,8 +110,9 @@ public class Main {
                     if(currentUser == null){
                         throw new Exception("User is not logged in");
                     }
-                    if(currentUser.getUsername().equalsIgnoreCase(currentUser.foodList.get(request.port()).getAuthor())){
-                        currentUser.foodList.remove(request.port());
+                    if(request.queryParams("postdelete").equalsIgnoreCase("delete")){
+                        int deleteId = Integer.valueOf(request.queryParams("postId"));
+                        currentUser.foodList.remove(deleteId);
                     }
                     response.redirect("/");
                     return "";
@@ -133,21 +127,12 @@ public class Main {
                     if(currentUser == null){
                         throw new Exception("User is not logged in");
                     }
-                    if(currentUser.getUsername().equalsIgnoreCase(currentUser.foodList.get(request.port()).getAuthor())){
-                        currentUser.foodList.remove(request.port());
-                    }
-                    response.redirect("/edit-page");
-                    return "";
-                })
-                );
+                    String deleteFood = request.queryParams("deleteName");
 
-        Spark.post("/edit-page",
-                ((request, response) -> {
-                    Session session=request.session();
-                    String userName = session.attribute("userName");
-                    User currentUser = users.get(userName);
-                    if(currentUser == null){
-                        throw new Exception("User is not logged in");
+                    for(Food looper: currentUser.foodList){
+                        if(looper.getMealName().equalsIgnoreCase(deleteFood)){
+                            currentUser.foodList.remove(looper.getPostId());
+                        }
                     }
                     String mealName = request.queryParams("mealName");
                     int calories = Integer.valueOf(request.queryParams("calories"));
@@ -155,14 +140,59 @@ public class Main {
                     int carbs = Integer.valueOf(request.queryParams("carbs"));
                     int protein = Integer.valueOf(request.queryParams("protein"));
                     String typeOfMeal = request.queryParams("typeOfMeal");
-                    Food foodEntry = new Food(mealName,calories,carbs,fat,protein,typeOfMeal,userName);
+                    int postId = currentUser.foodList.size();
+
+                    Food foodEntry = new Food(mealName,calories,carbs,fat,protein,typeOfMeal,userName,postId);
 
                     currentUser.foodList.add(foodEntry);
+
                     response.redirect("/");
-                    return "";
+                    return"";
                 })
                 );
 
+//        Spark.post("/edit-entry",
+//                ((request, response) -> {
+//                    Session session=request.session();
+//                    String userName = session.attribute("userName");
+//                    User currentUser = users.get(userName);
+//                    if(currentUser == null){
+//                        throw new Exception("User is not logged in");
+//                    }
+//                    if(currentUser.getUsername().equalsIgnoreCase(currentUser.foodList.get(request.port()).getAuthor())){
+//                        currentUser.foodList.remove(request.port());
+//                    }
+//                    response.redirect("/edit-page");
+//                    return "";
+//                })
+//                );
+//
+//        Spark.get("/edit-message/",
+//                ((request, response) -> {
+//                    Session session=request.session();
+//                    String userName = session.attribute("userName");
+//                    User currentUser = users.get(userName);
+//                    if(currentUser == null){
+//                        throw new Exception("User is not logged in");
+//                    }
+//                    if(request.queryParams("calories").isEmpty()||request.queryParams("fat").isEmpty()||request.queryParams("mealName").isEmpty()||request.queryParams("carbs").isEmpty()||request.queryParams("protein").isEmpty()||request.queryParams("typeOfMeal").isEmpty()){
+//                        response.redirect("/edit-message/");
+//                        return"";
+//                    }
+//                    String mealName = request.queryParams("mealName");
+//                    int calories = Integer.valueOf(request.queryParams("calories"));
+//                    int fat = Integer.valueOf(request.queryParams("fat"));
+//                    int carbs = Integer.valueOf(request.queryParams("carbs"));
+//                    int protein = Integer.valueOf(request.queryParams("protein"));
+//                    String typeOfMeal = request.queryParams("typeOfMeal");
+//                    int postId=Integer.valueOf(request.queryParams("postId"));
+//                    Food foodEntry = new Food(mealName,calories,carbs,fat,protein,typeOfMeal,userName,postId);
+//
+//                    currentUser.foodList.add(foodEntry);
+//                    response.redirect("/");
+//                    return "";
+//                })
+//                );
 
         Spark.post(
                 "/login",
@@ -171,20 +201,14 @@ public class Main {
                     String password = request.queryParams("password");
 
                     if (userName == null) {
-                        response.redirect("/login");
+                        response.redirect("/");
                     }
                     if(!users.containsKey(userName)){
-                        response.redirect("/login");
+                        response.redirect("/");
                     }
                     if(users.containsKey(userName)&&!users.get(userName).getPassword().equals(password)){
-                        response.redirect("/login");
+                        response.redirect("/");
                     }
-
-//                    User user = users.get(userName);
-//                    if (user == null) {
-//                        user = new User(userName,password);
-//                        users.put(userName, user);
-//                    }
 
                     Session session = request.session();
                     session.attribute("userName", userName);
@@ -193,9 +217,6 @@ public class Main {
                     return "";
                 })
         );
-
-//        Spark.get("/users/:name", (request, response) ->
-//          "Selected user: " + request.params(":name"));
 
         Spark.post(
                 "/logout",
@@ -214,19 +235,16 @@ public class Main {
                     String password = request.queryParams("createPassword");
 
                     if (userName == null) {
-                        response.redirect("/create-user");
+                        response.redirect("/");
+                        return"";
                     }
                     if (users.containsValue(userName)){
-                        response.redirect("/create-user");
+                        response.redirect("/");
+                        return "";
                     }
 
                     User currentUser=new User(userName,password);
                     users.put(userName, currentUser);
-//                    User user = users.get(userName);
-//                    if (user == null) {
-//                        user = new User(userName,password);
-//                        users.put(userName, user);
-//                    }
                     Session session = request.session();
                     session.attribute("userName", userName);
 
@@ -234,13 +252,5 @@ public class Main {
                     return "";
                 })
         );
-    }
-
-    static void addTestUsers() {
-        users.put("blank", new User("Alice","1234"));
-    }
-
-    static void addBlanks() {
-        foodz.put("blank",new Food("blank" , 0, 0, 0,0,"dinner","blank"));
     }
 }

@@ -11,8 +11,9 @@ public class Food {
     private int protein;
     private String mealName;
     private String author;
+    private int postId;
 
-    public Food(String foodName, int calories, int carbs, int fat, int protein, String mealName,String author) {
+    public Food(String foodName, int calories, int carbs, int fat, int protein, String mealName,String author, int postId) {
         this.foodName = foodName;
         this.calories = calories;
         this.carbs = carbs;
@@ -20,6 +21,15 @@ public class Food {
         this.protein = protein;
         this.mealName = mealName;
         this.author=author;
+        this.postId=postId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public String getAuthor() {

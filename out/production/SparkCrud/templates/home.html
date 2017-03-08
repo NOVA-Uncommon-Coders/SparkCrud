@@ -15,6 +15,14 @@
             <a title="createUser" href="start.html">Create an Account</a>
         </li>
     </ul>
+    {{#userName}}
+    Welcome, {{.}}!
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <br>
+    {{/userName}}
+    <br>
 </nav>
 
 <br>
@@ -33,15 +41,90 @@
     </select>
     <button type="submit">Submit</button>
 </form>
+<p>
 
-<ol>
-    {{#foodList}}
-    <li>{{post}} - made by {{userName}} created {{createdDate}} minutes ago <form action="/delete-entry" action="/edit-entry" method="post"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="reply">Edit this entry</option></select><button type="submit">Submit</button></form></li>
-    <li>{{}}       {{}}</li>
-    <li>{{}}       {{}}</li>
-    <li>{{}}       {{}}</li>
-    {{/foodList}}
-</ol>
-
+</p>
+<p></p>
+<p></p>
+<table id="breakfastHeader">
+    <tr>
+        <th>Breakfast</th>
+    </tr>
+</table>
+<table id="foodTable">
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#breakfast}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"/><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/breakfast}}
+</ul>
+<table>
+    <tr>
+        <th>Brunch</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#brunch}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/brunch}}
+</ul>
+<table>
+    <tr>
+        <th>Lunch</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#lunch}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/lunch}}
+</ul>
+<table>
+    <tr>
+        <th>Dinner</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#dinner}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/dinner}}
+</ul>
 </body>
 </html>

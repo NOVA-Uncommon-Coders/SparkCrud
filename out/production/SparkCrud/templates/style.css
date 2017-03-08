@@ -1,6 +1,43 @@
 body{
-    background-color: darkslateblue;
+    background-color: lightskyblue;
 }
-nav{
-    background-color: blueviolet;
+nav {background: cyan; text-align: center;}
+nav ul{list-style: none;}
+nav ul li{display: inline;}
+h1.loginMessage {text-align: center;font-size: xx-large;}
+h1.smalljoke{text-align: center; font-size: xx-small; position: inherit; top: 20px}
+
+select {
+    width: 14%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+ul {
+    list-style-image: url("https://openclipart.org/image/12px/svg_to_png/135559/OCAL-Favorites-Icon-Unselected.png");
+}
+
+table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: deepskyblue;
+    color: white;
 }
