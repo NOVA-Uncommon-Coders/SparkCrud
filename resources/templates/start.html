@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="start.css" rel="stylesheet" type="text/css">
+
+</head>
+<>
+<nav>
+    <h1 class="loginMessage">Start tracking you calories</h1>
+    <h1 class="smalljoke">powered by Pepsi</h1>
+    <ul class="topBar">
+        <li>
+            <a title="login" href="start.html">Login</a>
+        </li>
+        <li>
+            <a title="createUser" href="start.html">Create an Account</a>
+        </li>
+    </ul>
+</nav>
+
+<br>
+{{^userName}}
+<div align="left">
+    <h2>LOGIN HERE</h2>
+<form action="/login" method="post" >
+    <input type="text" placeholder="Enter your name" name="loginName"/>
+    <input type="text" placeholder="Enter your password" name="password"/>
+    <button type="submit">Login</button>
+</form>
+</div>
+<br>
+<div align="right">
+    <h2>CREATE USER HERE</h2>
+    <form action="/create-user" method="post" >
+        <input type="text" placeholder="Choose your username" name="createLoginName"/>
+        <input type="text" placeholder="Enter new  password" name="createPassword"/>
+        <button type="submit">CREATE USER</button>
+    </form>
+</div>
+<br>
+</div>
+
+
+
+{{/userName}}
+
+
+
+</body>
+</html>

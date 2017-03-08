@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<nav>
+    <h1 class="loginMessage">Start tracking you calories</h1>
+    <h1 class="smalljoke">powered by Pepsi</h1>
+    <ul class="topBar">
+        <li>
+            <a title="login" href="start.html">Login</a>
+        </li>
+        <li>
+            <a title="createUser" href="start.html">Create an Account</a>
+        </li>
+    </ul>
+    {{#userName}}
+    Welcome, {{.}}!
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <br>
+    {{/userName}}
+    <br>
+</nav>
+
+<br>
+<form action="/create-entry" method="post">
+    <input type="text" placeholder="Enter your meal" name="mealName">
+    <input type="number" placeholder="Calories" name="calories">
+    <input type="number" placeholder="Fat" name="fat">
+    <input type="number" placeholder="Carbs" name="carbs">
+    <input type="number" placeholder="Protein" name="protein">
+    <select name="typeOfMeal">
+        <option selected disabled>Which meal</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="brunch">Brunch</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+<p>
+
+</p>
+<p></p>
+<p></p>
+<table id="breakfastHeader">
+    <tr>
+        <th>Breakfast</th>
+    </tr>
+</table>
+<table id="foodTable">
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#breakfast}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"/><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/breakfast}}
+</ul>
+<table>
+    <tr>
+        <th>Brunch</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#brunch}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/brunch}}
+</ul>
+<table>
+    <tr>
+        <th>Lunch</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#lunch}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/lunch}}
+</ul>
+<table>
+    <tr>
+        <th>Dinner</th>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Food name</th>
+        <th>Calories</th>
+        <th>Fat</th>
+        <th>Carbs</th>
+        <th>Protein</th>
+        <th>Meal time</th>
+    </tr>
+</table>
+<ul>
+    {{#dinner}}
+    <li>{{foodName}}-{{calories}} {{carbs}} {{fat}} {{protein}} {{mealName}} <form action="/delete-entry" method="post"><input type="hidden" value="{{postId}}" name="postId"><select name="postdelete"><option selected disabled>Interact with this</option><option value="delete">Delete this entry</option><option value="edit">Edit this entry</option></select><button type="submit">Submit</button></form></li>
+    {{/dinner}}
+</ul>
+</body>
+</html>
