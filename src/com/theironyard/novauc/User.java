@@ -7,15 +7,24 @@ import java.util.ArrayList;
  */
 public class User {
     static ArrayList<Movie> movies = new ArrayList<>();
-
+    int id;
     String name;
     String password;
 
 
-    public User(String name, String password){
+    public User(int id,String name, String password){
+        this.id = id;
         this.name = name;
         this.password = password;
 
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+
+        return id;
+    }
 }

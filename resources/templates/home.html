@@ -1,45 +1,38 @@
 <html>
 <body>
+Welcome, {{name}}
+
 <form action="/logout" method="post">
     <button type="submit">Logout</button>
 </form>
 <br>
-<form action="/create-account" method="post" >
-    <input type="text" placeholder="Enter your name" name="accountName"/>
-    <input type="password" name="passWord"/>
-    <button type="submit">Submit</button>
-    <button type="submit">Reset</button>
-</form>
 
 <form action="/create-movie" method="post">
     <input type="text" placeholder="Name of movie" name="movieName" width="350/">
     <input type="text" placeholder="Actor name" name="actorName" width="350"/>
     <input type="text" placeholder="Genre" name="movieGenre" width="350"/>
     <input type="text" placeholder="Rating" name="movieRating" width="350"/>
-
     <button type="submit">Submit</button>
 </form>
 <br>
-<form action="/edit-movie" method="post">
-    <input type="hidden" value="{{id}}" name="updateMovie"/>
-    <input type="hidden" value="{{id}}"  name="editMovie"/>
-    <button type="edit">Edit</button>
 
-</form>
-
-
-
-
-<form action="/delete" method="post">
-    {{name}} {{actor}} {{genre}} {{rating}}
-    <button type="submit">Delete</button>
-    <input type="hidden" value="{{id}}"  name="deleteMovie"/>
-</form>
-  <br>
 
 <ol>
-    {{# movie}}
-   <li></li>  {{name}} {{actor}} {{genre}} {{rating}}
+    {{#movie}}
+<li>
+    <form action="/delete" method="post">
+        {{name}} {{actor}} {{genre}} {{rating}}
+        <button type="submit">Delete</button>
+        <input type="hidden" value="{{id}}"  name="deleteMovie"/>
+    </form>
+    <form action="/edit-movie" method = "post">
+        <a href="{{id}}"></a>
+        <input type="text" placeholder="Updatelist" name="updateMovie"/>
+        <input type="hidden" value="{{id}}" name="updateMovie"/>
+        <button type="submit">Edit</button>
+
+    </form>
+</li>
     {{/movie}}
 </ol>
 </body>
