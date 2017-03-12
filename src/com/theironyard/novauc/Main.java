@@ -18,8 +18,8 @@ public class Main {
 
     public static void createTables() throws SQLException {
         Statement stated = getConnection().createStatement();
-        stated.execute("CREATE TABLE IF NOT EXISTS entries (id IDENTITY, entryName VARCHAR, entryModifier VARCHAR, entryNumber INT )");
-        stated.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY , userName VARCHAR, password VARCHAR)");
+        stated.execute("CREATE TABLE IF NOT EXISTS entries (entryID IDENTITY, entryName VARCHAR, entryModifier VARCHAR, entryNumber INT )");
+        stated.execute("CREATE TABLE IF NOT EXISTS users (userID IDENTITY , userName VARCHAR, userPassword VARCHAR)");
     }
 
     public static void insertEntry(String entryName, String entryModifier, int entryNumber) throws SQLException {
@@ -33,37 +33,48 @@ public class Main {
 
     public static void insertUser (String userName, String userPassword) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("INSERT INTO users (userName, userPassword) VALUES (?,?)");
+                ("INSERT INTO users VALUES (?,?)");
+
+        //INSERT INTO users VALUES (?,?)
         ps.setString(1, userName);
         ps.setString(2, userPassword);
         ps.execute();
     }
 
     public static void deleteEntry(int entryID) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM entries WHERE id=?");
+        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM entries WHERE entryID=?");
         ps.setInt(1, entryID);
         ps.execute();
     }
 
     public static void deleteUser (int userID) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM users WHERE id = ?");
+        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM users WHERE userID = ?");
         ps.setInt(1, userID);
         ps.execute();
     }
 
-    public static ArrayList<Entry> selectEntry() throws SQLException {
+    public static ArrayList<Entry>  selectEntry() throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries ");
         ArrayList<Entry> entriesAL = new ArrayList<>();
         ResultSet results = ps.executeQuery();
         while (results.next()){
-            int id = results.getInt("id");
+            int entryID = results.getInt("entryID");
             String entryName = results.getString("entryName");
             String entryModifier = results.getString("entryModifier");
             int entryNumber = results.getInt("entryNumber");
 
-            entriesAL.add(new Entry(id, entryName, entryModifier, entryNumber));
+            entriesAL.add(new Entry(entryID, entryName, entryModifier, entryNumber));
         }
         return entriesAL;
+    }
+
+    public static ArrayList<User>  selectUser() throws SQLException {
+        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM users");
+        ArrayList<User> usersAL = new ArrayList<>();
+        ResultSet results = ps.executeQuery();
+        while (results.next()){
+            String userName = results.getString("userID");
+        }
     }
 
     public static void updateEntry(String entryName, String entryModifier, int entryNumber) throws SQLException {
@@ -116,6 +127,7 @@ public class Main {
             }
             else {
                 session.attribute("userName", name);
+                insertUser(name, password);
                 accountInfo.put(name, new User(name, password));
             }
             response.redirect("/");
