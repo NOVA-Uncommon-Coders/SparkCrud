@@ -32,10 +32,7 @@ public class Main {
     }
 
     public static void insertUser (String userName, String userPassword) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement
-                ("INSERT INTO users VALUES (?,?)");
-
-        //INSERT INTO users VALUES (?,?)
+        PreparedStatement ps = getConnection().prepareStatement("INSERT INTO users (userName, userPassword) VALUES (?,?)");
         ps.setString(1, userName);
         ps.setString(2, userPassword);
         ps.execute();
@@ -53,6 +50,7 @@ public class Main {
         ps.execute();
     }
 
+
     public static ArrayList<Entry>  selectEntry() throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries ");
         ArrayList<Entry> entriesAL = new ArrayList<>();
@@ -68,21 +66,25 @@ public class Main {
         return entriesAL;
     }
 
-    public static ArrayList<User>  selectUser() throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM users");
-        ArrayList<User> usersAL = new ArrayList<>();
+    public static User selectUser(String userName) throws SQLException {
+        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM users WHERE userName = ?");
+        ps.setString(1, userName);
         ResultSet results = ps.executeQuery();
-        while (results.next()){
-            String userName = results.getString("userID");
+        if (results.next()) {
+            int userID = results.getInt("userID");
+            String userPassword = results.getString("userPassword");
+            return new User(userID, userName, userPassword);
         }
+        return null;
     }
 
-    public static void updateEntry(String entryName, String entryModifier, int entryNumber) throws SQLException {
+    public static void updateEntry(int entryID, String entryName, String entryModifier, int entryNumber) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("UPDATE entries SET entryModifier = ?, entryNumber = ? WHERE entryName = ?");
-        ps.setString(3,entryName);
-        ps.setString(1,entryModifier);
-        ps.setInt(2,entryNumber);
+                ("UPDATE entries SET entryName = ?, entryModifier = ?, entryNumber = ? WHERE entryID = ?");
+        ps.setString(1,entryName);
+        ps.setString(2,entryModifier);
+        ps.setInt(3,entryNumber);
+        ps.setInt(4, entryID);
         ps.execute();
     }
 
@@ -90,71 +92,67 @@ public class Main {
         return new User(1, "billyray");
     }
 
-    public static HashMap<String, User> accountInfo = new HashMap<>();
-    public static ArrayList<Entry> restAL = new ArrayList<>();
+//    public static HashMap<String, User> accountInfoHM = new HashMap<>();
+//    public static ArrayList<Entry> restAL = new ArrayList<>();
 
     public static void main(String[] args) throws SQLException {
-
-        Spark.init();
-        Server.createWebServer().start();
         createTables();
+        //System.out.println(selectUser("mike").getUserName());
+        Spark.init();
+       //Server.createWebServer().start();
+
+
 
         Spark.get("/", ((request, response) -> {
                     Session session = request.session();
-                    String name = session.attribute("userName");
-                    HashMap userActivity = new HashMap();
-                    if(!accountInfo.containsKey(name)) {
-                        return new ModelAndView(userActivity,"index.html");
+                    User user = session.attribute("user");
+                    HashMap userActivityHM = new HashMap();
+
+                    if(user == null) {
+                        return new ModelAndView(userActivityHM,"index.html");
                     }
                     else {
-                        userActivity.put("entries", selectEntry());
-                        userActivity.put("userName", name);
-                        return new ModelAndView(userActivity, "index.html");
+                        userActivityHM.put("entries", selectEntry());
+                        userActivityHM.put("user", user);
+                        return new ModelAndView(userActivityHM, "index.html");
                     }
                 }),
                 new MustacheTemplateEngine()
         );
 
         Spark.post("/login", (request, response) -> {
-            String name = request.queryParams("userName");
-            String password = request.queryParams("passwordLogin");
+            String userName = request.queryParams("userName");
+            String userPassword = request.queryParams("userPassword");
             Session session = request.session();
-
-            if(accountInfo.containsKey(name)) {
-                if(password.equals(accountInfo.get(name).getUserPassword())) {
-                    session.attribute("userName", name);
+            User user = selectUser(userName);
+            if (user != null) {
+                if (user.getUserPassword().equals(userPassword)) {
+                    session.attribute("user", user);
                 }
-            }
-            else {
-                session.attribute("userName", name);
-                insertUser(name, password);
-                accountInfo.put(name, new User(name, password));
+            } else {
+                insertUser(userName, userPassword);
+                user = selectUser(userName);
+                session.attribute("user", user);
             }
             response.redirect("/");
             return "";
         });
 
         Spark.post("/create-entry", (request, response) -> {
-
             String entryName = request.queryParams("entryName");
             String entryModifier = request.queryParams("entryModifier");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumber"));
-
             insertEntry(entryName, entryModifier,entryNumber);
-
             response.redirect("/");
             return "";
         });
 
         Spark.post("/edit-entry", (request, response) -> {
-
-            //int id = Integer.valueOf(request.queryParams("restEditId"));
             String entryName = request.queryParams("entryNameEdit");
             String entryModifier = request.queryParams("entryModifierEdit");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumberEdit"));
-
-            updateEntry(entryName, entryModifier, entryNumber);
-
+            int entryID = Integer.valueOf(request.queryParams("entryID"));
+            updateEntry(entryID, entryName, entryModifier, entryNumber);
             response.redirect("/");
             return "";
         });

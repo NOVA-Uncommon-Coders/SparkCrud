@@ -1,15 +1,15 @@
 <html>
 <body>
-{{^userName}}
+{{^user}}
 <form action="/login" method="post">
     <input type="text" placeholder="name" name="userName">
-    <input type="password" placeholder="password" name="passwordLogin">
+    <input type="password" placeholder="password" name="userPassword">
     <button type="submit">Submit</button>
 </form>
-{{/userName}}
+{{/user}}
 
-{{#userName}}
-{{.}}
+{{#user}}
+
 <form action="/logout" method="post">
     <button type="logout">Logout</button>
 </form>
@@ -27,7 +27,7 @@
 </form>
 
 <form action="/edit-entry" method="post">
-    <!--input type="number" placeholder="edit which #?" name="restEditId"-->
+    <input type="number" placeholder="edit which #?" name="entryID">
     <input type="text" placeholder="edit name" name="entryNameEdit">
     <input type="text" placeholder="edit dish" name="entryModifierEdit">
     <input type="number" placeholder="edit # waiters" name="entryNumberEdit">
@@ -44,7 +44,7 @@
     {{entryNumber}}
 </ul>
 {{/entries}}
-{{/userName}}
+{{/user}}
 
 </body>
 </html>

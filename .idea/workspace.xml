@@ -4,6 +4,7 @@
     <list default="true" id="8e4b65b6-d1a1-4985-ab99-2f2b78992fb4" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.mv.db" afterPath="$PROJECT_DIR$/main.mv.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.trace.db" afterPath="$PROJECT_DIR$/main.trace.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/templates/index.html" afterPath="$PROJECT_DIR$/resources/templates/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/theironyard/novauc/Main.java" afterPath="$PROJECT_DIR$/src/com/theironyard/novauc/Main.java" />
     </list>
     <ignored path="SparkCrud.iws" />
@@ -28,21 +29,21 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/theironyard/novauc/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="75" column="58" lean-forward="false" selection-start-line="75" selection-start-column="58" selection-end-line="75" selection-end-column="58" />
+            <state relative-caret-position="240">
+              <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3529#3530#0" expanded="true" />
-                <element signature="e#3575#3576#0" expanded="true" />
-                <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-                <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-                <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-                <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-                <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-                <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-                <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-                <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-                <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+                <element signature="e#3698#3699#0" expanded="true" />
+                <element signature="e#3744#3745#0" expanded="true" />
+                <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+                <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+                <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+                <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+                <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+                <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+                <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+                <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+                <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
               </folding>
             </state>
           </provider>
@@ -71,30 +72,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tracker.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/templates/tracker.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#ul#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="anotherplace.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/templates/anotherplace.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="7" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+            <state relative-caret-position="-11">
+              <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -143,6 +122,9 @@
       <find>insert</find>
       <find>entries</find>
       <find>id</find>
+      <find>userActivity</find>
+      <find>accountInfo</find>
+      <find>selectE</find>
     </findStrings>
     <replaceStrings>
       <replace>storage</replace>
@@ -152,6 +134,8 @@
       <replace>entries</replace>
       <replace>entryNumber</replace>
       <replace>entry</replace>
+      <replace>userActivityHM</replace>
+      <replace>accountInfoHM</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -169,8 +153,8 @@
         <option value="$PROJECT_DIR$/resources/templates/anotherplace.html" />
         <option value="$PROJECT_DIR$/resources/templates/tracker.html" />
         <option value="$PROJECT_DIR$/src/com/theironyard/novauc/Entry.java" />
-        <option value="$PROJECT_DIR$/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/com/theironyard/novauc/User.java" />
+        <option value="$PROJECT_DIR$/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/com/theironyard/novauc/Main.java" />
       </list>
     </option>
@@ -700,12 +684,12 @@
       <workItem from="1489018460716" duration="4956000" />
       <workItem from="1489189616684" duration="19000" />
       <workItem from="1489262593759" duration="1523000" />
-      <workItem from="1489280777165" duration="5897000" />
+      <workItem from="1489280777165" duration="17722000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="90209000" />
+    <option name="totallyTimeSpent" value="102034000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,7 +713,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26575342" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -769,7 +753,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -784,17 +768,17 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -858,17 +842,17 @@
           <caret line="84" column="42" lean-forward="false" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -932,17 +916,17 @@
           <caret line="84" column="42" lean-forward="false" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -1006,17 +990,17 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -1080,17 +1064,17 @@
           <caret line="78" column="41" lean-forward="true" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -1146,17 +1130,17 @@
           <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
@@ -1239,29 +1223,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="-11">
+          <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/theironyard/novauc/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="75" column="58" lean-forward="false" selection-start-line="75" selection-start-column="58" selection-end-line="75" selection-end-column="58" />
+        <state relative-caret-position="240">
+          <caret line="150" column="0" lean-forward="false" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3529#3530#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <marker date="1489331829000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
-            <marker date="1489331829000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
-            <marker date="1489331829000" expanded="true" signature="1396:1426" ph="INSERT INTO users... " />
-            <marker date="1489331829000" expanded="true" signature="1710:1745" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="1943:1977" ph="DELETE FROM " />
-            <marker date="1489331829000" expanded="true" signature="2177:2198" ph="SELECT * FRO... entries" />
-            <marker date="1489331829000" expanded="true" signature="2851:2870" ph="SELECT * FRO... users" />
-            <marker date="1489331829000" expanded="true" signature="3278:3351" ph="UPDATE entri... " />
+            <element signature="e#3698#3699#0" expanded="true" />
+            <element signature="e#3744#3745#0" expanded="true" />
+            <marker date="1489361549000" expanded="true" signature="563:676" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="704:795" ph="CREATE TABLE... IF" />
+            <marker date="1489361549000" expanded="true" signature="1002:1078" ph="INSERT INTO entries... " />
+            <marker date="1489361549000" expanded="true" signature="1379:1434" ph="INSERT INTO users... " />
+            <marker date="1489361549000" expanded="true" signature="1676:1711" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="1909:1943" ph="DELETE FROM " />
+            <marker date="1489361549000" expanded="true" signature="2144:2165" ph="SELECT * FRO... entries" />
+            <marker date="1489361549000" expanded="true" signature="2821:2859" ph="SELECT * FRO... users" />
+            <marker date="1489361549000" expanded="true" signature="3403:3489" ph="UPDATE entri... " />
           </folding>
         </state>
       </provider>
