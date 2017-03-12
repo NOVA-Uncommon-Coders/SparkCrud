@@ -1,51 +1,29 @@
 package com.theironyard.novauc;
 
-
 public class Entry {
-    public static int i = 0;
-    private String author;
-    private String text;
-    private int id;
+    private int entryId;
+    private String entryName;
+    private String entryModifier;
+    private int entryNumber;
 
-    public Entry() {
+    public Entry(int entryId, String entryName, String entryModifier, int entryNumber){
+        this.entryId = entryId;
+        this.entryName = entryName;
+        this.entryModifier = entryModifier;
+        this.entryNumber = entryNumber;
     }
 
-    public Entry( String author, String text) {
-        //this.id = id;
-        this.author = author;
-        this.text = text;
-        id = i++;
+    public Entry() {}
+
+    public int getEntryId() {return entryId; }
+
+    public String getEntryName() {
+        return entryName;
     }
 
-    public int getId() {
-        return id;
-    }
+    public String getEntryModifier() {return entryModifier; }
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public static int getI() {
-        return i;
-    }
-
-    public static void setI(int i) {
-        Entry.i = i;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public int getEntryNumber() {
+        return entryNumber;
     }
 }

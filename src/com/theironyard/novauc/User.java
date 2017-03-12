@@ -2,19 +2,35 @@ package com.theironyard.novauc;
 
 
 public class User {
-    private String name;
-    private String password;
+    private int userId;
+    private String userName;
+    private String userPassword;
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public User(int userId, String userName, String userPassword) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
     }
 
-    String getName() {
-        return name;
+    public User(int userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
     }
 
-    String getPassword() {
-        return password;
+    public User(String userName, String userPassword) {
+        this.userName = userName;
+        this.userPassword = userPassword;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
     }
 }
