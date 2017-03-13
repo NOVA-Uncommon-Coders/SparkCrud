@@ -16,21 +16,21 @@
 
 <form action="/create-entry" method="post">
     <input type="text" placeholder="entry name" name="entryName">
-    <input type="text" placeholder="entry modifier" name="entryModifier">
-    <input type="number" placeholder="entry #?" name="entryNumber">
+    <input type="text" placeholder="user name" name="entryUserName">
+    <input type="number" placeholder="integer of your choice" name="entryNumber">
     <button type="submit">Submit</button>
 </form>
 
 <form action="/delete-entry" method="post">
-    <input type="number" placeholder="delete which #?" name="entryDelete">
+    <input type="number" placeholder="delete which ID# ?" name="entryDelete">
     <button type="submit">Delete</button>
 </form>
 
 <form action="/edit-entry" method="post">
-    <input type="number" placeholder="edit which #?" name="entryID">
-    <input type="text" placeholder="edit name" name="entryNameEdit">
-    <input type="text" placeholder="edit dish" name="entryModifierEdit">
-    <input type="number" placeholder="edit # waiters" name="entryNumberEdit">
+    <input type="number" placeholder="edit which ID# ?" name="entryID">
+    <input type="text" placeholder="edit restaurant name" name="entryNameEdit">
+    <input type="text" placeholder="edit user entry name" name="entryUserNameEdit">
+    <input type="number" placeholder="edit the integer!" name="entryNumberEdit">
     <button type="submit">Edit</button>
 </form>
 
@@ -40,7 +40,7 @@
 <ul>
     {{entryId}}:
     {{entryName}} /
-    {{entryModifier}} /
+    {{entryUserName}} /
     {{entryNumber}}
 </ul>
 {{/entries}}

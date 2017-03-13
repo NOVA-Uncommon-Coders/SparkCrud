@@ -18,15 +18,15 @@ public class Main {
 
     public static void createTables() throws SQLException {
         Statement stated = getConnection().createStatement();
-        stated.execute("CREATE TABLE IF NOT EXISTS entries (entryID IDENTITY, entryName VARCHAR, entryModifier VARCHAR, entryNumber INT )");
+        stated.execute("CREATE TABLE IF NOT EXISTS entries (entryID IDENTITY, entryName VARCHAR, entryUserName VARCHAR, entryNumber INT )");
         stated.execute("CREATE TABLE IF NOT EXISTS users (userID IDENTITY , userName VARCHAR, userPassword VARCHAR)");
     }
 
-    public static void insertEntry(String entryName, String entryModifier, int entryNumber) throws SQLException {
+    public static void insertEntry(String entryName, String entryUserName, int entryNumber) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("INSERT INTO entries (entryName, entryModifier, entryNumber) VALUES (?, ?, ?)");
+                ("INSERT INTO entries (entryName, entryUserName, entryNumber) VALUES (?, ?, ?)");
         ps.setString(1,entryName);
-        ps.setString(2,entryModifier);
+        ps.setString(2,entryUserName);
         ps.setInt(3,entryNumber);
         ps.execute();
     }
@@ -44,22 +44,23 @@ public class Main {
         ps.execute();
     }
 
+    //TODO resolve int in constructor, main doesn't have a way of capturing that yet
     public static ArrayList<Entry> selectEntry (int entryID) throws SQLException {
         ArrayList<Entry> entryAL = new ArrayList<>();
         PreparedStatement ps = getConnection().prepareStatement
-                ("SELECT * FROM entries INNER JOIN users ON entries.entryName = users.userID WHERE entries.entryID = ?");
+                ("SELECT * FROM entries INNER JOIN users ON entries.entryUserName = users.userName WHERE entries.entryID = ?");
         ps.setInt(1, entryID);
         ResultSet results = ps.executeQuery();
         while (results.next()) {
-            String entryNamei = results.getString("entries.name");
-            int userIDi = results.getInt("users.userID");
-            int entryIDi  = results.getInt("entries.entryID");
-            entryAL(new Entry(entryIdi, entryName, entryModifier, entryNumber));
+            String entryName = results.getString("entries.entryName");
+            String userName = results.getString("users.userName");
+            int newNum = 0;
+            entryAL.add(new Entry(entryID, entryName, userName, newNum));
         }
         return entryAL;
     }
 
-
+    //TODO change to inner join between users and entries
     public static ArrayList<Entry>  selectEntries() throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries ");
         ArrayList<Entry> entriesAL = new ArrayList<>();
@@ -67,10 +68,10 @@ public class Main {
         while (results.next()){
             int entryID = results.getInt("entryID");
             String entryName = results.getString("entryName");
-            String entryModifier = results.getString("entryModifier");
+            String entryUserName = results.getString("entryUserName");
             int entryNumber = results.getInt("entryNumber");
 
-            entriesAL.add(new Entry(entryID, entryName, entryModifier, entryNumber));
+            entriesAL.add(new Entry(entryID, entryName, entryUserName, entryNumber));
         }
         return entriesAL;
     }
@@ -87,11 +88,11 @@ public class Main {
         return null;
     }
 
-    public static void updateEntry(int entryID, String entryName, String entryModifier, int entryNumber) throws SQLException {
+    public static void updateEntry(int entryID, String entryName, String entryUserName, int entryNumber) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("UPDATE entries SET entryName = ?, entryModifier = ?, entryNumber = ? WHERE entryID = ?");
+                ("UPDATE entries SET entryName = ?, entryUserName = ?, entryNumber = ? WHERE entryID = ?");
         ps.setString(1,entryName);
-        ps.setString(2,entryModifier);
+        ps.setString(2,entryUserName);
         ps.setInt(3,entryNumber);
         ps.setInt(4, entryID);
         ps.execute();
@@ -101,7 +102,7 @@ public class Main {
         createTables();
         //System.out.println(selectUser("mike").getUserName());
         Spark.init();
-       //Server.createWebServer().start();
+        Server.createWebServer().start();
 
 
 
@@ -114,8 +115,9 @@ public class Main {
                         return new ModelAndView(userActivityHM,"index.html");
                     }
                     else {
-                        userActivityHM.put("entries", selectEntries());
                         userActivityHM.put("user", user);
+                        userActivityHM.put("selectEntries", selectEntries());
+                        //userActivityHM.put("selectEntry", selectEntry());
                         return new ModelAndView(userActivityHM, "index.html");
                     }
                 }),
@@ -142,19 +144,19 @@ public class Main {
 
         Spark.post("/create-entry", (request, response) -> {
             String entryName = request.queryParams("entryName");
-            String entryModifier = request.queryParams("entryModifier");
+            String entryUserName = request.queryParams("entryUserName");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumber"));
-            insertEntry(entryName, entryModifier,entryNumber);
+            insertEntry(entryName, entryUserName,entryNumber);
             response.redirect("/");
             return "";
         });
 
         Spark.post("/edit-entry", (request, response) -> {
             String entryName = request.queryParams("entryNameEdit");
-            String entryModifier = request.queryParams("entryModifierEdit");
+            String entryUserName = request.queryParams("entryUserNameEdit");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumberEdit"));
             int entryID = Integer.valueOf(request.queryParams("entryID"));
-            updateEntry(entryID, entryName, entryModifier, entryNumber);
+            updateEntry(entryID, entryName, entryUserName, entryNumber);
             response.redirect("/");
             return "";
         });

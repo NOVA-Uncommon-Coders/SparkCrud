@@ -3,25 +3,27 @@ package com.theironyard.novauc;
 public class Entry {
     private int entryId;
     private String entryName;
-    private String entryModifier;
+    private String entryUserName;
     private int entryNumber;
 
-    public Entry(int entryId, String entryName, String entryModifier, int entryNumber){
+    public Entry(int entryId, String entryName, String entryUserName, int entryNumber){
         this.entryId = entryId;
         this.entryName = entryName;
-        this.entryModifier = entryModifier;
+        this.entryUserName = entryUserName;
         this.entryNumber = entryNumber;
     }
 
     public Entry() {}
 
-    public int getEntryId() {return entryId; }
-
-    public String getEntryName() {
-        return entryName;
+    public Entry(int entryId) {
+        this.entryId = entryId;
     }
 
-    public String getEntryModifier() {return entryModifier; }
+    public int getEntryId() {return entryId; }
+
+    public String getEntryName() {return entryName;}
+
+    public String getentryUserName() {return entryUserName; }
 
     public int getEntryNumber() {
         return entryNumber;
