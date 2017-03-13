@@ -44,14 +44,23 @@ public class Main {
         ps.execute();
     }
 
-    public static void deleteUser (int userID) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("DELETE FROM users WHERE userID = ?");
-        ps.setInt(1, userID);
-        ps.execute();
+    public static ArrayList<Entry> selectEntry (int entryID) throws SQLException {
+        ArrayList<Entry> entryAL = new ArrayList<>();
+        PreparedStatement ps = getConnection().prepareStatement
+                ("SELECT * FROM entries INNER JOIN users ON entries.entryName = users.userID WHERE entries.entryID = ?");
+        ps.setInt(1, entryID);
+        ResultSet results = ps.executeQuery();
+        while (results.next()) {
+            String entryNamei = results.getString("entries.name");
+            int userIDi = results.getInt("users.userID");
+            int entryIDi  = results.getInt("entries.entryID");
+            entryAL(new Entry(entryIdi, entryName, entryModifier, entryNumber));
+        }
+        return entryAL;
     }
 
 
-    public static ArrayList<Entry>  selectEntry() throws SQLException {
+    public static ArrayList<Entry>  selectEntries() throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries ");
         ArrayList<Entry> entriesAL = new ArrayList<>();
         ResultSet results = ps.executeQuery();
@@ -88,13 +97,6 @@ public class Main {
         ps.execute();
     }
 
-    public static User currentUser() {
-        return new User(1, "billyray");
-    }
-
-//    public static HashMap<String, User> accountInfoHM = new HashMap<>();
-//    public static ArrayList<Entry> restAL = new ArrayList<>();
-
     public static void main(String[] args) throws SQLException {
         createTables();
         //System.out.println(selectUser("mike").getUserName());
@@ -112,7 +114,7 @@ public class Main {
                         return new ModelAndView(userActivityHM,"index.html");
                     }
                     else {
-                        userActivityHM.put("entries", selectEntry());
+                        userActivityHM.put("entries", selectEntries());
                         userActivityHM.put("user", user);
                         return new ModelAndView(userActivityHM, "index.html");
                     }
