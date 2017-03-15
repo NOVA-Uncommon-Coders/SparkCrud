@@ -18,16 +18,17 @@ public class Main {
 
     public static void createTables() throws SQLException {
         Statement stated = getConnection().createStatement();
-        stated.execute("CREATE TABLE IF NOT EXISTS entries (entryID IDENTITY, entryName VARCHAR, entryUserName VARCHAR, entryNumber INT )");
+        stated.execute("CREATE TABLE IF NOT EXISTS entries (entryID IDENTITY, entryName VARCHAR, entryDescription VARCHAR, entryNumber INT, user_id INT)");
         stated.execute("CREATE TABLE IF NOT EXISTS users (userID IDENTITY , userName VARCHAR, userPassword VARCHAR)");
     }
 
-    public static void insertEntry(String entryName, String entryUserName, int entryNumber) throws SQLException {
+    public static void insertEntry(String entryName, String entryDescription, int entryNumber, int user_id) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("INSERT INTO entries (entryName, entryUserName, entryNumber) VALUES (?, ?, ?)");
+                ("INSERT INTO entries (entryName, entryDescription, entryNumber, user_id) VALUES (?, ?, ?, ?)");
         ps.setString(1,entryName);
-        ps.setString(2,entryUserName);
+        ps.setString(2,entryDescription);
         ps.setInt(3,entryNumber);
+        ps.setInt(4, user_id);
         ps.execute();
     }
 
@@ -48,7 +49,7 @@ public class Main {
     public static ArrayList<Entry> selectEntry (int entryID) throws SQLException {
         ArrayList<Entry> entryAL = new ArrayList<>();
         PreparedStatement ps = getConnection().prepareStatement
-                ("SELECT * FROM entries INNER JOIN users ON entries.entryUserName = users.userName WHERE entries.entryID = ?");
+                ("SELECT * FROM entries INNER JOIN users ON entries.entryDescription = users.userName WHERE entries.entryID = ?");
         ps.setInt(1, entryID);
         ResultSet results = ps.executeQuery();
         while (results.next()) {
@@ -61,17 +62,34 @@ public class Main {
     }
 
     //TODO change to inner join between users and entries
-    public static ArrayList<Entry>  selectEntries() throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries ");
+    public static ArrayList<Entry> selectEntries() throws SQLException {
+        PreparedStatement ps = getConnection().prepareStatement
+                ("SELECT * FROM entries INNER JOIN users ON users.userID = entries.user_id");
+        ArrayList<Entry> entriesAL2 = new ArrayList<>();
+        ResultSet results = ps.executeQuery();
+        while (results.next()){
+            int entryID = results.getInt("entryID");
+            String entryName = results.getString("entryName");
+            String entryDescription = results.getString("entryDescription");
+            int entryNumber = results.getInt("entryNumber");
+            String userName = results.getString("userName");
+
+            entriesAL2.add(new Entry(entryID, entryName, entryDescription, entryNumber, userName));
+        }
+        return entriesAL2;
+    }
+
+    public static ArrayList<Entry>  allEntries(/*int entryNumber*/) throws SQLException {
+        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries");
         ArrayList<Entry> entriesAL = new ArrayList<>();
         ResultSet results = ps.executeQuery();
         while (results.next()){
             int entryID = results.getInt("entryID");
             String entryName = results.getString("entryName");
-            String entryUserName = results.getString("entryUserName");
+            String entryDescription = results.getString("entryDescription");
             int entryNumber = results.getInt("entryNumber");
 
-            entriesAL.add(new Entry(entryID, entryName, entryUserName, entryNumber));
+            entriesAL.add(new Entry(entryID, entryName, entryDescription, entryNumber));
         }
         return entriesAL;
     }
@@ -88,11 +106,11 @@ public class Main {
         return null;
     }
 
-    public static void updateEntry(int entryID, String entryName, String entryUserName, int entryNumber) throws SQLException {
+    public static void updateEntry(int entryID, String entryName, String entryDescription, int entryNumber) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
-                ("UPDATE entries SET entryName = ?, entryUserName = ?, entryNumber = ? WHERE entryID = ?");
+                ("UPDATE entries SET entryName = ?, entryDescription = ?, entryNumber = ? WHERE entryID = ?");
         ps.setString(1,entryName);
-        ps.setString(2,entryUserName);
+        ps.setString(2,entryDescription);
         ps.setInt(3,entryNumber);
         ps.setInt(4, entryID);
         ps.execute();
@@ -109,6 +127,11 @@ public class Main {
         Spark.get("/", ((request, response) -> {
                     Session session = request.session();
                     User user = session.attribute("user");
+                    //Entry entry = session.attribute("entryNum");
+                    //int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
+                    //Entry entree = session.attributes("entree");
+
+
                     HashMap userActivityHM = new HashMap();
 
                     if(user == null) {
@@ -116,7 +139,10 @@ public class Main {
                     }
                     else {
                         userActivityHM.put("user", user);
-                        userActivityHM.put("selectEntries", selectEntries());
+                        //userActivityHM.put("allEntries", allEntries());
+                        userActivityHM.put("allEntries", selectEntries());
+                        //userActivityHM.put("selectEntries", selectEntries());
+                        //userActivityHM.put("selectEntries", selectEntries(selectEntriesObj));
                         //userActivityHM.put("selectEntry", selectEntry());
                         return new ModelAndView(userActivityHM, "index.html");
                     }
@@ -144,19 +170,21 @@ public class Main {
 
         Spark.post("/create-entry", (request, response) -> {
             String entryName = request.queryParams("entryName");
-            String entryUserName = request.queryParams("entryUserName");
+            String entryDescription = request.queryParams("entryDescription");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumber"));
-            insertEntry(entryName, entryUserName,entryNumber);
+            User user = request.session().attribute("user");
+            int user_id = user.getUserId();
+            insertEntry(entryName, entryDescription, entryNumber, user_id);
             response.redirect("/");
             return "";
         });
 
         Spark.post("/edit-entry", (request, response) -> {
             String entryName = request.queryParams("entryNameEdit");
-            String entryUserName = request.queryParams("entryUserNameEdit");
+            String entryDescription = request.queryParams("entryDescriptionEdit");
             int entryNumber = Integer.valueOf(request.queryParams("entryNumberEdit"));
             int entryID = Integer.valueOf(request.queryParams("entryID"));
-            updateEntry(entryID, entryName, entryUserName, entryNumber);
+            updateEntry(entryID, entryName, entryDescription, entryNumber);
             response.redirect("/");
             return "";
         });
@@ -165,6 +193,15 @@ public class Main {
             deleteEntry(Integer.valueOf(request.queryParams("entryDelete")));
             response.redirect("/");
             return "";
+        });
+
+        Spark.post("/get-select-entries", (request, response) -> {
+           int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
+           Session session = request.session();
+           //Entry entry = session.attribute("selectEntriesAttribute");
+           //selectEntries(selectEntriesObj);
+           response.redirect("/");
+           return "";
         });
 
         Spark.post("/logout", (request, response) -> {

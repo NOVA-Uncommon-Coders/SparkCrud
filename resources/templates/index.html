@@ -14,37 +14,63 @@
     <button type="logout">Logout</button>
 </form>
 
+Create things (add) to the Entries table
 <form action="/create-entry" method="post">
     <input type="text" placeholder="entry name" name="entryName">
-    <input type="text" placeholder="user name" name="entryUserName">
+    <input type="text" placeholder="user name" name="entryDescription">
     <input type="number" placeholder="integer of your choice" name="entryNumber">
     <button type="submit">Submit</button>
 </form>
 
+Delete things from the Entries table
 <form action="/delete-entry" method="post">
     <input type="number" placeholder="delete which ID# ?" name="entryDelete">
     <button type="submit">Delete</button>
 </form>
 
+Update things from the Entries table
 <form action="/edit-entry" method="post">
     <input type="number" placeholder="edit which ID# ?" name="entryID">
-    <input type="text" placeholder="edit restaurant name" name="entryNameEdit">
-    <input type="text" placeholder="edit user entry name" name="entryUserNameEdit">
+    <input type="text" placeholder="edit entry name" name="entryNameEdit">
+    <input type="text" placeholder="edit user entry name" name="entryDescriptionEdit">
     <input type="number" placeholder="edit the integer!" name="entryNumberEdit">
     <button type="submit">Edit</button>
 </form>
 
 
+Return stuff based upon the integers people have submitted
+<form action="/get-select-entries" method="post">
+    <input type="number" placeholder="what entry integer?" name="selectEntriesAttribute">
+    <button type="submit">Get it!</button>
+</form>
 
-{{#selectEntries}}
-<ul>
-    {{entryId}}:
-    {{entryName}} /
-    {{entryUserName}} /
-    {{entryNumber}}
-</ul>
-{{/selectEntries}}
+<!--Stuff being read-->
+<!--{{#entryNum}}-->
+<!--<ul>{{.}}</ul>-->
+<!--{{/entryNum}}-->
+<!--<br>-->
+<!--<br/>-->
+
 {{/user}}
+
+Reading everything from Entries table
+{{#allEntries}}
+<ul>
+    <!--{{entryId}}:-->
+    <!--{{entryName}},-->
+    <!--{{entryDescription}},-->
+    <!--{{entryNumber}}-->
+    <!--{{authorName}}-->
+
+    <p>entry number: {{entryId}}</p>
+    <p>entry name: {{entryName}}</p>
+    <p>description: {{entryDescription}}</p>
+    <p>random number: {{entryNumber}}</p>
+    <p>author: {{authorName}}</p>
+
+</ul>
+{{/allEntries}}
+
 
 </body>
 </html>
