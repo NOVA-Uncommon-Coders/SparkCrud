@@ -25,9 +25,9 @@ public class Main {
     public static void insertEntry(String entryName, String entryDescription, int entryNumber, int user_id) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
                 ("INSERT INTO entries (entryName, entryDescription, entryNumber, user_id) VALUES (?, ?, ?, ?)");
-        ps.setString(1,entryName);
-        ps.setString(2,entryDescription);
-        ps.setInt(3,entryNumber);
+        ps.setString(1, entryName);
+        ps.setString(2, entryDescription);
+        ps.setInt(3, entryNumber);
         ps.setInt(4, user_id);
         ps.execute();
     }
@@ -109,9 +109,9 @@ public class Main {
     public static void updateEntry(int entryID, String entryName, String entryDescription, int entryNumber) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
                 ("UPDATE entries SET entryName = ?, entryDescription = ?, entryNumber = ? WHERE entryID = ?");
-        ps.setString(1,entryName);
-        ps.setString(2,entryDescription);
-        ps.setInt(3,entryNumber);
+        ps.setString(1, entryName);
+        ps.setString(2, entryDescription);
+        ps.setInt(3, entryNumber);
         ps.setInt(4, entryID);
         ps.execute();
     }
@@ -127,10 +127,6 @@ public class Main {
         Spark.get("/", ((request, response) -> {
                     Session session = request.session();
                     User user = session.attribute("user");
-                    //Entry entry = session.attribute("entryNum");
-                    //int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
-                    //Entry entree = session.attributes("entree");
-
 
                     HashMap userActivityHM = new HashMap();
 
@@ -139,11 +135,8 @@ public class Main {
                     }
                     else {
                         userActivityHM.put("user", user);
-                        //userActivityHM.put("allEntries", allEntries());
                         userActivityHM.put("allEntries", selectEntries());
-                        //userActivityHM.put("selectEntries", selectEntries());
-                        //userActivityHM.put("selectEntries", selectEntries(selectEntriesObj));
-                        //userActivityHM.put("selectEntry", selectEntry());
+
                         return new ModelAndView(userActivityHM, "index.html");
                     }
                 }),
@@ -195,14 +188,14 @@ public class Main {
             return "";
         });
 
-        Spark.post("/get-select-entries", (request, response) -> {
-           int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
-           Session session = request.session();
-           //Entry entry = session.attribute("selectEntriesAttribute");
-           //selectEntries(selectEntriesObj);
-           response.redirect("/");
-           return "";
-        });
+//        Spark.post("/get-select-entries", (request, response) -> {
+//           int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
+//           Session session = request.session();
+//           //Entry entry = session.attribute("selectEntriesAttribute");
+//           //selectEntries(selectEntriesObj);
+//           response.redirect("/");
+//           return "";
+//        });
 
         Spark.post("/logout", (request, response) -> {
             Session session = request.session();
