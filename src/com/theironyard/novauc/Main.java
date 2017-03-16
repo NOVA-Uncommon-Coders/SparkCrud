@@ -45,7 +45,7 @@ public class Main {
         ps.execute();
     }
 
-    //TODO resolve int in constructor, main doesn't have a way of capturing that yet
+    //doesnt do anything, per the project requirements
     public static ArrayList<Entry> selectEntry (int entryID) throws SQLException {
         ArrayList<Entry> entryAL = new ArrayList<>();
         PreparedStatement ps = getConnection().prepareStatement
@@ -61,7 +61,6 @@ public class Main {
         return entryAL;
     }
 
-    //TODO change to inner join between users and entries
     public static ArrayList<Entry> selectEntries() throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement
                 ("SELECT * FROM entries INNER JOIN users ON users.userID = entries.user_id");
@@ -79,20 +78,20 @@ public class Main {
         return entriesAL2;
     }
 
-    public static ArrayList<Entry>  allEntries(/*int entryNumber*/) throws SQLException {
-        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries");
-        ArrayList<Entry> entriesAL = new ArrayList<>();
-        ResultSet results = ps.executeQuery();
-        while (results.next()){
-            int entryID = results.getInt("entryID");
-            String entryName = results.getString("entryName");
-            String entryDescription = results.getString("entryDescription");
-            int entryNumber = results.getInt("entryNumber");
-
-            entriesAL.add(new Entry(entryID, entryName, entryDescription, entryNumber));
-        }
-        return entriesAL;
-    }
+//    public static ArrayList<Entry>  allEntries(/*int entryNumber*/) throws SQLException {
+//        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries");
+//        ArrayList<Entry> entriesAL = new ArrayList<>();
+//        ResultSet results = ps.executeQuery();
+//        while (results.next()){
+//            int entryID = results.getInt("entryID");
+//            String entryName = results.getString("entryName");
+//            String entryDescription = results.getString("entryDescription");
+//            int entryNumber = results.getInt("entryNumber");
+//
+//            entriesAL.add(new Entry(entryID, entryName, entryDescription, entryNumber));
+//        }
+//        return entriesAL;
+//    }
 
     public static User selectUser(String userName) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM users WHERE userName = ?");
