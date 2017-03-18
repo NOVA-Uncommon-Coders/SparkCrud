@@ -5,6 +5,7 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Main {
@@ -100,16 +101,8 @@ public class Main {
                     String name = session.attribute("userName");
                     User user = users.get(name);
                     String updateMovie = request.queryParams("updateMovie");
-                    String id = request.queryParams("id");
                     int l = Integer.valueOf(updateMovie);
-
-                    for (Movie movie : user.movies)
-                        if (movie.getId() == l) ;
-                    {
-
-                    }
-
-
+                    Movie addMovie = new Movie();
                     response.redirect("/");
                     return "";
 
@@ -123,18 +116,23 @@ public class Main {
                     String name = session.attribute("userName");
                     User user = users.get(name);
                     String deleteMovie = request.queryParams("deleteMovie");
-                    int l = Integer.valueOf(deleteMovie);
-                    for (Movie movie : user.movies) {
-                        if (movie.getId() == l) {
-// assign this movie to movie object
-                        }
-                    }
-// place that movie object in remove method
-                    user.movies.remove(l);
-                    response.redirect("/");
-                    return "";
+                    int i = Integer.valueOf(deleteMovie);
+                    Movie removeMovie = new Movie();
+            for (int j = 0; j < user.movies.size(); j++) {
+                if(user.movies.get(j).getId() == i) {
+                    removeMovie = user.movies.get(j);
+                }
+            }
+            user.movies.remove(removeMovie);
 
-                })
+
+
+
+                            response.redirect("/");
+                            return "";
+
+                    })
+
         );
 
 
