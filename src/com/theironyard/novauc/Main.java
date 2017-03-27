@@ -46,19 +46,20 @@ public class Main {
     }
 
     //doesnt do anything, per the project requirements
-    public static ArrayList<Entry> selectEntry (int entryID) throws SQLException {
-        ArrayList<Entry> entryAL = new ArrayList<>();
+    public static Entry selectEntry (int entryID) throws SQLException {
+        Entry entry = null;
         PreparedStatement ps = getConnection().prepareStatement
-                ("SELECT * FROM entries INNER JOIN users ON entries.entryDescription = users.userName WHERE entries.entryID = ?");
+                ("SELECT * FROM entries INNER JOIN users ON users.userID = entries.user_id WHERE entries.entryID = ?");
         ps.setInt(1, entryID);
         ResultSet results = ps.executeQuery();
         while (results.next()) {
             String entryName = results.getString("entries.entryName");
+            String entryDescriptionn = results.getString("entries.entryDescription");
             String userName = results.getString("users.userName");
-            int newNum = 0;
-            entryAL.add(new Entry(entryID, entryName, userName, newNum));
+            int entryNumber = results.getInt("entries.entryNumber");
+            entry = new Entry(entryID, entryName, entryDescriptionn, entryNumber, userName);
         }
-        return entryAL;
+        return entry;
     }
 
     public static ArrayList<Entry> selectEntries() throws SQLException {
@@ -77,21 +78,6 @@ public class Main {
         }
         return entriesAL2;
     }
-
-//    public static ArrayList<Entry>  allEntries(/*int entryNumber*/) throws SQLException {
-//        PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM entries");
-//        ArrayList<Entry> entriesAL = new ArrayList<>();
-//        ResultSet results = ps.executeQuery();
-//        while (results.next()){
-//            int entryID = results.getInt("entryID");
-//            String entryName = results.getString("entryName");
-//            String entryDescription = results.getString("entryDescription");
-//            int entryNumber = results.getInt("entryNumber");
-//
-//            entriesAL.add(new Entry(entryID, entryName, entryDescription, entryNumber));
-//        }
-//        return entriesAL;
-//    }
 
     public static User selectUser(String userName) throws SQLException {
         PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM users WHERE userName = ?");
@@ -187,14 +173,6 @@ public class Main {
             return "";
         });
 
-//        Spark.post("/get-select-entries", (request, response) -> {
-//           int selectEntriesObj = Integer.valueOf(request.queryParams("selectEntriesAttribute"));
-//           Session session = request.session();
-//           //Entry entry = session.attribute("selectEntriesAttribute");
-//           //selectEntries(selectEntriesObj);
-//           response.redirect("/");
-//           return "";
-//        });
 
         Spark.post("/logout", (request, response) -> {
             Session session = request.session();
