@@ -101,8 +101,20 @@ public class Main {
                     String name = session.attribute("userName");
                     User user = users.get(name);
                     String updateMovie = request.queryParams("updateMovie");
-                    int l = Integer.valueOf(updateMovie);
+                    int upMovie = Integer.valueOf(request.queryParams("upMovie"));
                     Movie addMovie = new Movie();
+                    for (int i = 0; i < user.movies.size(); i++) {
+                        if (user.movies.get(i).getId() == upMovie) {
+                            addMovie = user.movies.get(i);
+                        }
+                    }
+                    addMovie.setActor(updateMovie);
+                    addMovie.setName(updateMovie);
+                    addMovie.setGenre(updateMovie);
+                    addMovie.setRating(updateMovie);
+
+
+
                     response.redirect("/");
                     return "";
 
