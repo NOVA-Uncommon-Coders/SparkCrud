@@ -27,7 +27,10 @@ Welcome, {{name}}
     </form>
     <form action="/edit-movie" method = "post">
         <a href="{{id}}"></a>
-        <input type="text" placeholder="Updatelist" name="updateMovie"/>
+        <input type="text" placeholder="Movie" name="updateMovie"/>
+        <input type="text" placeholder="Name" name="upName"/>
+        <input type="text" placeholder="Genre" name="upGenre"/>
+        <input type="text" placeholder="Rating" name="upRating"/>
         <input type="hidden" value="{{id}}" name="upMovie"/>
         <button type="submit">Edit</button>
 

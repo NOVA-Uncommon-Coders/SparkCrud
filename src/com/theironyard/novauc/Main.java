@@ -101,6 +101,9 @@ public class Main {
                     String name = session.attribute("userName");
                     User user = users.get(name);
                     String updateMovie = request.queryParams("updateMovie");
+                    String upName = request.queryParams("upName");
+                    String upGenre = request.queryParams("upGenre");
+                    String upRating = request.queryParams("upRating");
                     int upMovie = Integer.valueOf(request.queryParams("upMovie"));
                     Movie addMovie = new Movie();
                     for (int i = 0; i < user.movies.size(); i++) {
@@ -108,10 +111,11 @@ public class Main {
                             addMovie = user.movies.get(i);
                         }
                     }
-                    addMovie.setActor(updateMovie);
+
                     addMovie.setName(updateMovie);
-                    addMovie.setGenre(updateMovie);
-                    addMovie.setRating(updateMovie);
+                    addMovie.setActor(upName);
+                    addMovie.setGenre(upGenre);
+                    addMovie.setRating(upRating);
 
 
 
