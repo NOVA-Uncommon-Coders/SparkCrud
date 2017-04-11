@@ -1,0 +1,46 @@
+<html>
+<body>
+
+Welcome {{user}}!
+
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+<form action="/create" method="post">
+    <input type="text" placeholder="enter message" name="message">
+    <button type="submit">SEND</button>
+</form>
+
+
+<h5>User Messages</h5>
+
+
+<ol>
+    {{#m}}
+    <li >
+        {{text}}
+        <form action="/deleteNumber"  method="post">
+            <input type="hidden" value={{midentifier}} name="deleteNumber"/>
+            <button type="submit">Delete</button>
+        </form>
+        <form action="/update" method="post">
+            <input type="hidden" value={{midentifier}} name="updateNumber"/>
+            <input type="text" placeholder="enter new message" name="newMessage"/>
+            <button type="submit">Update Message</button>
+            <br>
+        </form>
+    </li>
+    {{/m}}
+</ol>
+
+
+<!--<form action="/delete" method="post">-->
+    <!--<input type="hidden" placeholder="" name="delete"/>-->
+    <!--<button type="submit">Delete</button>-->
+    <!--<br>-->
+<!--</form>-->
+
+
+</body>
+</html>
+
