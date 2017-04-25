@@ -1,0 +1,54 @@
+
+
+
+
+
+<html>
+<body>
+Welcome, {{name}}
+
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+<br>
+
+<form action="/create-beers" method="post">
+    <input type="text" placeholder="Name of beer:" name="beerName" width=“350/“>
+    <input type="text" placeholder=“Type” name=“beerType” width=“350"/>
+    <input type="text" placeholder=“Origin” name=“beerOrigin” width=“350"/>
+    <button type="submit">Submit</button>
+</form>
+<br>
+
+
+<ol>
+    {{#beer}}
+    <li>
+        <form action="/delete" method="post">
+            {{name}} {{type}} {{origin}}
+            <button type="submit">Delete</button>
+            <input type="hidden" value="{{id}}"  name="deleteBeer"/>
+        </form>
+        <form action="edit-beer" method="post" >
+            <a href="{{id}}"></a>
+            <input type="text" placeholder=“Beer” name="updateBeer"/>
+            <input type="text" placeholder=“Name” name="upName"/>
+            <input type="text" placeholder=“Type” name="upType"/>
+            <input type="text" placeholder=“Origin” name="upOrigin"/>
+            <input type="hidden" value="{{id}}" name="upBeer"/>
+            <button type="submit">Edit</button>
+
+        </form>
+    </li>
+    {{/beer}}
+</ol>
+</body>
+
+
+</html>
+
+
+
+
+
+
